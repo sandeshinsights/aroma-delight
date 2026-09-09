@@ -5,28 +5,24 @@ import GalleryGrid, { type GalleryImage } from "@/components/GalleryGrid";
  *
  * FOOD ONLY, DELIBERATELY.
  *
- * This used to show eight photos under the heading "a glimpse into our kitchen
- * and dining experience". Two of them made claims about the premises that were
- * not true: gallery-5 was an ornate crimson dining room that is not this
- * restaurant (compare about/restaurant-interior.jpg, which is), and gallery-7
- * was an Indian street spice market presented as our kitchen. Both are dropped.
+ * Disabled in site-config until there are real photographs. When it comes back,
+ * keep it to dish photography of things that are actually on the menu — a
+ * picture of a dining room the customer will never walk into is a different
+ * kind of claim. The section copy talks about the food for the same reason.
  *
- * What is left is six dish photographs, captioned by dish. Illustrative food
- * photography of things that really are on the menu is ordinary restaurant
- * practice; a photograph of a dining room the customer will never walk into is
- * not. The section copy talks about the food for the same reason.
- *
- * The two dropped files are still in public/images/gallery/ — unreferenced, and
- * safe to delete or replace with real photographs of the restaurant.
+ * The six slots below point at branded placeholders; swap each `src` for a real
+ * dish photo and keep the alt text describing what belongs there.
  */
 
+// Placeholder art for launch — swap each src for a real dish photo, keep the
+// alt text describing what should be there.
 const galleryImages: GalleryImage[] = [
-  { src: "/images/gallery/gallery-1.jpg", alt: "Thali platter with curries, rice and breads" },
-  { src: "/images/gallery/gallery-2.jpg", alt: "Garlic naan, fresh from the tandoor" },
-  { src: "/images/gallery/gallery-3.jpg", alt: "Chicken tikka masala in a clay pot" },
-  { src: "/images/gallery/gallery-8.jpg", alt: "Tandoori mixed grill platter" },
-  { src: "/images/gallery/gallery-4.jpg", alt: "Vegetable samosa and pakora platter" },
-  { src: "/images/gallery/gallery-6.jpg", alt: "Mango lassi and gulab jamun" },
+  { src: "/images/placeholder/dish-1.svg", alt: "Thali platter with curries, rice and breads" },
+  { src: "/images/placeholder/dish-2.svg", alt: "Garlic naan, fresh from the tandoor" },
+  { src: "/images/placeholder/dish-3.svg", alt: "Chicken tikka masala in a clay pot" },
+  { src: "/images/placeholder/dish-1.svg", alt: "Tandoori mixed grill platter" },
+  { src: "/images/placeholder/dish-2.svg", alt: "Vegetable samosa and pakora platter" },
+  { src: "/images/placeholder/dish-3.svg", alt: "Mango lassi and gulab jamun" },
 ];
 
 export default function Gallery() {

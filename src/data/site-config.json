@@ -5,29 +5,29 @@
       "href": "#hero"
     },
     {
-      "label": "About",
-      "href": "#about"
-    },
-    {
       "label": "Menu",
       "href": "#menu"
     },
     {
-      "label": "Specials",
-      "href": "#specials"
+      "label": "About",
+      "href": "#about"
     },
     {
       "label": "Catering",
       "href": "#catering"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact"
     }
   ],
   "ctaButton": {
     "label": "Order Now",
-    "href": "tel:978-897-9227"
+    "href": "#menu"
   },
   "footer": {
-    "copyright": "Cafe of India. All Rights Reserved.",
-    "tagline": "Authentic Indian and Nepali Cuisine in the Heart of Maynard"
+    "copyright": "Aroma Delight. All Rights Reserved.",
+    "tagline": "Authentic Halal Indian Cuisine in Burlington, MA"
   },
   "sections": [
     {
@@ -37,14 +37,14 @@
       "enabled": true
     },
     {
-      "id": "about",
-      "title": "About Us",
+      "id": "menu",
+      "title": "Our Menu",
       "order": 2,
       "enabled": true
     },
     {
-      "id": "menu",
-      "title": "Our Menu",
+      "id": "about",
+      "title": "About Us",
       "order": 3,
       "enabled": true
     },
@@ -52,13 +52,13 @@
       "id": "specials",
       "title": "Chef's Specials",
       "order": 4,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "reviews",
       "title": "What Our Guests Say",
       "order": 5,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "catering",
@@ -76,7 +76,7 @@
       "id": "gallery",
       "title": "Gallery",
       "order": 8,
-      "enabled": true
+      "enabled": false
     },
     {
       "id": "contact",
@@ -93,28 +93,30 @@
     "analytics": true,
     "sections": {
       "about": true,
-      "gallery": true,
-      "specials": true,
-      "reviews": true,
+      "gallery": false,
+      "specials": false,
+      "reviews": false,
       "catering": true,
       "faq": true
     }
   },
   "theme": {
     "colors": {
-      "primary": "#5C1A1B",
-      "primaryLight": "#7A2627",
-      "secondary": "#C4973B",
-      "secondaryLight": "#D4AD5B",
-      "background": "#FBF8F1",
-      "backgroundAlt": "#F5F0E6",
-      "text": "#2D2D2D",
-      "textLight": "#6B6B6B",
+      "primary": "#1F3D34",
+      "primaryLight": "#2E5A4C",
+      "secondary": "#E0952A",
+      "secondaryLight": "#EDB65C",
+      "accent": "#C4552D",
+      "background": "#F6F1E8",
+      "backgroundAlt": "#ECE2D1",
+      "ink": "#191410",
+      "text": "#2A241F",
+      "textLight": "#6E655B",
       "white": "#FFFFFF"
     },
     "fonts": {
-      "heading": "Playfair Display",
-      "body": "Inter"
+      "heading": "Fraunces",
+      "body": "DM Sans"
     }
   }
 }

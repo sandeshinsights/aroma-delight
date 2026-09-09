@@ -13,7 +13,9 @@
  */
 import { calculateFreeItemOffer } from "../src/lib/free-item-offer.ts";
 
-const LASSI = "menu-102", SAMOSA = "menu-1";
+// Must track FREE_ITEM_IDS in src/lib/free-item-offer.ts.
+// Aroma Delight menu.json: Mango Lassi $5.00, Vegetable Samosa (2) $7.00.
+const LASSI = "menu-176", SAMOSA = "menu-8";
 const line = (id, price, qty = 1) => ({ id: `${id}-none-none-1787000000000`, price, quantity: qty });
 
 let pass = 0, fail = 0;
@@ -41,37 +43,37 @@ function check(label, lines, expect) {
 check("$30 curry, no lassi", [line("menu-25", 30)],
   { discount: 0, free: "-", reached: null, next: 50, toNext: 20, qual: 30 });
 
-check("$30 curry + lassi -> lassi price must NOT count toward $50", [line("menu-25", 30), line(LASSI, 5.99)],
+check("$30 curry + lassi -> lassi price must NOT count toward $50", [line("menu-25", 30), line(LASSI, 5)],
   { discount: 0, free: "-", reached: null, next: 50, toNext: 20, qual: 30 });
 
-check("$46 curry + lassi = $51.99 cart but only $46 qualifying", [line("menu-25", 46), line(LASSI, 5.99)],
+check("$46 curry + lassi = $51 cart but only $46 qualifying", [line("menu-25", 46), line(LASSI, 5)],
   { discount: 0, free: "-", reached: null, next: 50, toNext: 4, qual: 46 });
 
 // --- $50 tier ---
-check("$50 curry exactly + lassi -> free lassi", [line("menu-25", 50), line(LASSI, 5.99)],
-  { discount: 5.99, free: "Mango Lassi", reached: 50, missing: "-", qual: 50 });
+check("$50 curry exactly + lassi -> free lassi", [line("menu-25", 50), line(LASSI, 5)],
+  { discount: 5, free: "Mango Lassi", reached: 50, missing: "-", qual: 50 });
 
 check("$60 curry, no lassi added -> qualified but nothing comped", [line("menu-25", 60)],
   { discount: 0, free: "-", reached: 50, missing: "Mango Lassi", qual: 60 });
 
-check("$60 curry + 2 lassi -> only ONE is free", [line("menu-25", 60), line(LASSI, 5.99, 2)],
-  { discount: 5.99, free: "Mango Lassi", reached: 50, qual: 65.99 });
+check("$60 curry + 2 lassi -> only ONE is free", [line("menu-25", 60), line(LASSI, 5, 2)],
+  { discount: 5, free: "Mango Lassi", reached: 50, qual: 65 });
 
-check("$60 curry + samosa + lassi -> samosa NOT free below $100", [line("menu-25", 60), line(SAMOSA, 7.99), line(LASSI, 5.99)],
-  { discount: 5.99, free: "Mango Lassi", reached: 50, qual: 67.99 });
+check("$60 curry + samosa + lassi -> samosa NOT free below $100", [line("menu-25", 60), line(SAMOSA, 7), line(LASSI, 5)],
+  { discount: 5, free: "Mango Lassi", reached: 50, qual: 67 });
 
 // --- $100 tier ---
-check("$100 curry + samosa + lassi -> both free", [line("menu-25", 100), line(SAMOSA, 7.99), line(LASSI, 5.99)],
-  { discount: 13.98, free: "Mango Lassi+Vegetable Samosa", reached: 100, missing: "-", qual: 100 });
+check("$100 curry + samosa + lassi -> both free", [line("menu-25", 100), line(SAMOSA, 7), line(LASSI, 5)],
+  { discount: 12, free: "Mango Lassi+Vegetable Samosa (2)", reached: 100, missing: "-", qual: 100 });
 
-check("$96 curry + samosa + lassi -> misses $100, falls back to free lassi", [line("menu-25", 96), line(SAMOSA, 7.99), line(LASSI, 5.99)],
-  { discount: 5.99, free: "Mango Lassi", reached: 50, qual: 103.99, next: 100, toNext: 4 });
+check("$96 curry + samosa + lassi -> misses $100, falls back to free lassi", [line("menu-25", 96), line(SAMOSA, 7), line(LASSI, 5)],
+  { discount: 5, free: "Mango Lassi", reached: 50, qual: 103, next: 100, toNext: 4 });
 
-check("$100 curry + lassi only -> lassi free, samosa offered", [line("menu-25", 100), line(LASSI, 5.99)],
-  { discount: 5.99, free: "Mango Lassi", reached: 100, missing: "Vegetable Samosa", qual: 100 });
+check("$100 curry + lassi only -> lassi free, samosa offered", [line("menu-25", 100), line(LASSI, 5)],
+  { discount: 5, free: "Mango Lassi", reached: 100, missing: "Vegetable Samosa (2)", qual: 100 });
 
 check("$120 curry, nothing added -> both offered, nothing comped", [line("menu-25", 120)],
-  { discount: 0, free: "-", reached: 100, missing: "Mango Lassi+Vegetable Samosa", qual: 120 });
+  { discount: 0, free: "-", reached: 100, missing: "Mango Lassi+Vegetable Samosa (2)", qual: 120 });
 
 check("empty cart", [],
   { discount: 0, free: "-", reached: null, next: 50, toNext: 50, qual: 0 });

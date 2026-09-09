@@ -1,19 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #5C1A1B;
-  --color-primary-light: #7A2627;
-  --color-secondary: #C4973B;
-  --color-secondary-light: #D4AD5B;
-  --color-cream: #FBF8F1;
-  --color-cream-dark: #F5F0E6;
-  /* Deep warm near-black for the gallery band. Distinct from --color-primary so
-     the two dark sections on the page do not read as the same block. */
-  --color-ink: #221518;
-  --color-text-main: #2D2D2D;
-  --color-text-light: #6B6B6B;
-  --font-heading: "Playfair Display", Georgia, serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  /* ── Aroma Delight — "cardamom & turmeric" ──────────────────────
+     Deep cardamom green grounds the page; turmeric amber is the warm
+     accent that replaces the old gold; terracotta is the occasional
+     pop (spicy chips, hover states on dark). Backgrounds are a warm
+     bone rather than stark white. Token NAMES are unchanged from the
+     Cafe of India build so components keep their `bg-primary` /
+     `text-secondary` classes — only the values moved. */
+  --color-primary: #1F3D34;
+  --color-primary-light: #2E5A4C;
+  --color-primary-dark: #15302A;
+  --color-secondary: #E0952A;
+  --color-secondary-light: #EDB65C;
+  --color-accent: #C4552D;
+  --color-accent-light: #D9784F;
+  --color-cream: #F6F1E8;
+  --color-cream-dark: #ECE2D1;
+  /* Deep warm near-black for the dark bands (gallery, specials, contact,
+     footer). Distinct from --color-primary so two dark sections never
+     read as the same block. */
+  --color-ink: #191410;
+  --color-text-main: #2A241F;
+  --color-text-light: #6E655B;
+
+  --font-heading: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", "Inter", system-ui, sans-serif;
 
   /* Motion. Registered here so Tailwind generates animate-* utilities for them
      (Tailwind v4 has no tailwind.config.js — the theme IS this block). Every
@@ -23,7 +35,7 @@
   --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Slow drift across the hero photograph. Deliberately tiny — 4% over 24s reads
+/* Slow drift across the hero image. Deliberately tiny — 4% over 24s reads
    as the image being alive rather than as an effect. Panning as well as zooming
    keeps a centred subject from sitting dead still. */
 @keyframes ken-burns {
@@ -63,12 +75,9 @@
 
 /* These element defaults MUST live in @layer base.
    Unlayered CSS beats every cascade layer, and Tailwind's utilities live in the
-   utilities layer — so as plain top-level rules these won `color` against any
-   text-* utility, no matter the specificity. That is why `text-white` on a
-   heading did nothing: every h1-h6 on the site rendered maroon, including the
-   headings in the two `bg-primary` sections (Specials, Contact), which put
-   maroon text on a maroon background. Inside @layer base, utilities win again
-   and the default still applies wherever no utility is set. */
+   utilities layer — so as plain top-level rules these would win `color` against
+   any text-* utility. Inside @layer base, utilities win again and the default
+   still applies wherever no utility is set. */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -84,22 +93,49 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    color: var(--color-primary);
-    line-height: 1.2;
+    color: var(--color-ink);
+    line-height: 1.1;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Small shared bits of the visual language. */
+@layer components {
+  /* Section eyebrow: short, tracked, terracotta. */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* Faint block-print-style lattice, for dark bands. Apply to an absolutely
+     positioned overlay div. */
+  .jaali {
+    background-image:
+      linear-gradient(135deg, rgba(224, 149, 42, 0.06) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(224, 149, 42, 0.06) 25%, transparent 25%),
+      linear-gradient(45deg, rgba(224, 149, 42, 0.06) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(224, 149, 42, 0.06) 25%, transparent 25%);
+    background-position: 16px 0, 16px 0, 0 0, 0 0;
+    background-size: 32px 32px;
   }
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-cream);
+  background: var(--color-cream-dark);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--color-primary-light);
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -108,7 +144,7 @@
 
 ::selection {
   background-color: var(--color-secondary);
-  color: white;
+  color: var(--color-ink);
 }
 
 *:focus-visible {

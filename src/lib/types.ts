@@ -73,8 +73,10 @@ export interface ThemeColors {
   primaryLight: string;
   secondary: string;
   secondaryLight: string;
+  accent: string;
   background: string;
   backgroundAlt: string;
+  ink: string;
   text: string;
   textLight: string;
   white: string;

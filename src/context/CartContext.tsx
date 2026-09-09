@@ -68,7 +68,7 @@ function isStillOnMenu(item: unknown): boolean {
 }
 
 const TAX_RATE = 0.07;
-const STORAGE_KEY = "cafe-of-india-cart";
+const STORAGE_KEY = "aroma-delight-cart";
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);

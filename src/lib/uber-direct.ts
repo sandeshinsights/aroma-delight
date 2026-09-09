@@ -9,8 +9,17 @@
  * - Status:  GET  /v1/customers/{customer_id}/deliveries/{delivery_id}
  */
 
+import { getRestaurantData } from "@/lib/data";
+
 const TOKEN_URL = "https://login.uber.com/oauth/v2/token";
 const API_BASE = "https://api.uber.com/v1";
+
+// Pickup identity for courier dispatch — single source is
+// src/data/restaurant.json.
+const R = getRestaurantData();
+const PICKUP_ADDRESS = R.address.full;
+const PICKUP_NAME = R.name;
+const PICKUP_PHONE = R.phoneDisplay;
 
 interface TokenCache {
   accessToken: string;
@@ -84,9 +93,9 @@ function parseAddressToUber(address: string) {
 
   return JSON.stringify({
     street_address: [cleaned],
-    city: "Maynard",
-    state: "MA",
-    zip_code: "01754",
+    city: R.address.city,
+    state: R.address.state,
+    zip_code: R.address.zip,
     country: "US",
   });
 }
@@ -173,9 +182,9 @@ export async function createUberDelivery(params: {
     .join(", ");
 
   const requestBody: Record<string, unknown> = {
-    pickup_address: parseAddressToUber("155 Main Street, Maynard, MA 01754"),
-    pickup_name: "Cafe of India",
-    pickup_phone_number: "(978) 897-9227",
+    pickup_address: parseAddressToUber(PICKUP_ADDRESS),
+    pickup_name: PICKUP_NAME,
+    pickup_phone_number: PICKUP_PHONE,
     dropoff_address: parseAddressToUber(fullAddress),
     dropoff_name: params.customerName,
     dropoff_phone_number: params.customerPhone,

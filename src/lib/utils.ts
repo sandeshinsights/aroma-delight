@@ -28,7 +28,7 @@ export function formatPrice(price: number): string {
 /**
  * Format a phone number for display.
  * 
- * Example: formatPhone("9788979227") → "(978) 897-9227"
+ * Example: formatPhone("7812730111") → "(781) 273-0111"
  */
 export function formatPhone(phone: string): string {
   const cleaned = phone.replace(/\D/g, "");
@@ -50,7 +50,7 @@ export function capitalize(str: string): string {
 /**
  * Join a list of strings with a natural separator.
  * 
- * Example: joinNatural(["Maynard", "Acton", "Concord"]) → "Maynard, Acton & Concord"
+ * Example: joinNatural(["Burlington", "Woburn", "Lexington"]) → "Burlington, Woburn & Lexington"
  */
 export function joinNatural(items: string[]): string {
   if (items.length === 0) return "";

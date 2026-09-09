@@ -72,7 +72,7 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 auto-rows-[minmax(9rem,1fr)] sm:auto-rows-[minmax(12rem,1fr)] lg:auto-rows-[minmax(15rem,1fr)]">
         {images.map((image, index) => (
           <button
-            key={image.src}
+            key={index}
             type="button"
             onClick={() => setOpenIndex(index)}
             aria-label={`View larger: ${image.alt}`}
@@ -94,7 +94,7 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
             />
             {/* Warm wash that lifts on hover, so the tiles read as one set
                 against the dark band rather than eight loose photos. */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1A0F10]/60 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500" />
           </button>
         ))}
       </div>

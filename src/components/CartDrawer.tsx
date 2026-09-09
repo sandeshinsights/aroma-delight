@@ -11,7 +11,9 @@ import {
   type FreeItemOffer,
   type FreeItem,
 } from "@/lib/free-item-offer";
-import { isOnlineOrderingEnabled } from "@/lib/data";
+import { isOnlineOrderingEnabled, getRestaurantData } from "@/lib/data";
+
+const R = getRestaurantData();
 // Meta Pixel — InitiateCheckout is sent from BOTH here and /api/checkout, so the
 // event id generated below has to travel with the request or Meta counts two.
 import {
@@ -57,10 +59,10 @@ function FreeItemBanner({
       )}
 
       {unclaimed.length > 0 && (
-        <div className="rounded-lg bg-[#FBF8F1] border border-[#C4973B]/40 px-3 py-2">
+        <div className="rounded-lg bg-cream border border-secondary/40 px-3 py-2">
           <div className="flex items-start gap-2">
-            <Gift className="w-4 h-4 text-[#C4973B] shrink-0 mt-0.5" />
-            <p className="text-xs text-[#5C1A1B]">
+            <Gift className="w-4 h-4 text-secondary shrink-0 mt-0.5" />
+            <p className="text-xs text-primary">
               You&rsquo;ve unlocked a free{" "}
               <span className="font-semibold">{names(unclaimed)}</span>. Add
               {unclaimed.length > 1 ? " them" : " it"} to your order to claim
@@ -73,7 +75,7 @@ function FreeItemBanner({
                 key={freeItem.id}
                 type="button"
                 onClick={() => onAdd(freeItem)}
-                className="text-xs font-semibold px-3 py-1 rounded-full bg-[#C4973B] text-white hover:bg-[#b3872f] transition-colors"
+                className="text-xs font-semibold px-3 py-1 rounded-full bg-secondary text-cream hover:bg-secondary-light transition-colors"
               >
                 Add {freeItem.name} &mdash; free
               </button>
@@ -483,7 +485,7 @@ export default function CartDrawer() {
       <div className="absolute inset-0 bg-black/40" onClick={handleClose} />
 
       {/* panel */}
-      <div className="relative w-full max-w-md bg-[#FBF8F1] shadow-2xl flex flex-col">
+      <div className="relative w-full max-w-md bg-cream shadow-2xl flex flex-col">
         {/* header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 shrink-0">
           <div className="flex items-center gap-2">
@@ -498,7 +500,7 @@ export default function CartDrawer() {
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
               </button>
             )}
-            <h3 className="text-lg font-bold text-[#5C1A1B] flex items-center gap-2">
+            <h3 className="text-lg font-bold text-primary flex items-center gap-2">
               <ShoppingBag className="w-5 h-5" />
               {step === "review" && `Your Cart (${itemCount})`}
               {step === "fulfillment" && "Pickup or Delivery"}
@@ -537,7 +539,7 @@ export default function CartDrawer() {
             )}
 
             {items.length > 0 && (
-              <div className="sticky top-0 z-10 bg-[#FBF8F1] px-4 pt-4 pb-3 border-b border-gray-200">
+              <div className="sticky top-0 z-10 bg-cream px-4 pt-4 pb-3 border-b border-gray-200">
                 <FreeItemBanner offer={freeItemOffer} onAdd={handleAddFreeItem} />
               </div>
             )}
@@ -558,12 +560,12 @@ export default function CartDrawer() {
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-[#5C1A1B] truncate">
+                        <p className="text-sm font-medium text-primary truncate">
                           {item.name}
                         </p>
                         {item.protein && (
                           <p className="text-xs text-gray-500">
-                            Style: {item.protein}
+                            Choice: {item.protein}
                           </p>
                         )}
                         {item.spiceLevel && (
@@ -576,7 +578,7 @@ export default function CartDrawer() {
                             {item.specialInstructions}
                           </p>
                         )}
-                        <p className="text-sm font-bold text-[#C4973B] mt-1">
+                        <p className="text-sm font-bold text-secondary mt-1">
                           ${(item.price * item.quantity).toFixed(2)}
                         </p>
                       </div>
@@ -633,7 +635,7 @@ export default function CartDrawer() {
                     <span>Tax (7%)</span>
                     <span>${reviewTax.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between font-bold text-[#5C1A1B] text-base pt-1 border-t border-gray-200">
+                  <div className="flex justify-between font-bold text-primary text-base pt-1 border-t border-gray-200">
                     <span>Total</span>
                     <span>${reviewTotal.toFixed(2)}</span>
                   </div>
@@ -649,8 +651,8 @@ export default function CartDrawer() {
                     <p className="text-xs">
                       We&rsquo;re not taking online orders at the moment. Please call us
                       on{" "}
-                      <a href="tel:978-897-9227" className="underline font-medium">
-                        (978) 897-9227
+                      <a href={`tel:${R.phone}`} className="underline font-medium">
+                        {R.phoneDisplay}
                       </a>{" "}
                       and we&rsquo;ll take your order over the phone.
                     </p>
@@ -669,7 +671,7 @@ export default function CartDrawer() {
                   <label
                     className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
                       orderMode === "now"
-                        ? "border-[#5C1A1B] bg-[#5C1A1B]/5"
+                        ? "border-primary bg-primary/5"
                         : "border-gray-200 hover:border-gray-300"
                     } ${!orderingAvailable ? "opacity-50 cursor-not-allowed" : ""}`}
                   >
@@ -679,10 +681,10 @@ export default function CartDrawer() {
                       checked={orderMode === "now"}
                       onChange={() => setOrderMode("now")}
                       disabled={!orderingEnabled || !orderingAvailable}
-                      className="accent-[#5C1A1B]"
+                      className="accent-primary"
                     />
                     <div>
-                      <p className="text-sm font-medium text-[#5C1A1B]">Order Now</p>
+                      <p className="text-sm font-medium text-primary">Order Now</p>
                       <p className="text-xs text-gray-500">
                         {orderingAvailable
                           ? "Ready in 25-40 minutes"
@@ -694,7 +696,7 @@ export default function CartDrawer() {
                   <label
                     className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
                       orderMode === "scheduled"
-                        ? "border-[#C4973B] bg-[#C4973B]/5"
+                        ? "border-secondary bg-secondary/5"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
@@ -704,10 +706,10 @@ export default function CartDrawer() {
                       checked={orderMode === "scheduled"}
                       onChange={() => setOrderMode("scheduled")}
                       disabled={!orderingEnabled}
-                      className="accent-[#C4973B]"
+                      className="accent-secondary"
                     />
                     <div>
-                      <p className="text-sm font-medium text-[#5C1A1B]">Schedule for Later</p>
+                      <p className="text-sm font-medium text-primary">Schedule for Later</p>
                       <p className="text-xs text-gray-500">Pick a future date and time</p>
                     </div>
                   </label>
@@ -736,7 +738,7 @@ export default function CartDrawer() {
                     (orderMode === "now" && !orderingAvailable) ||
                     (orderMode === "scheduled" && (!selectedDate || !selectedTimeSlot))
                       ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                      : "bg-[#C4973B] text-white hover:bg-[#d4a84b]"
+                      : "bg-secondary text-cream hover:bg-secondary-light"
                   }`}
                 >
                   {orderMode === "scheduled" && (!selectedDate || !selectedTimeSlot)
@@ -771,25 +773,25 @@ export default function CartDrawer() {
                 onClick={() => { setFulfillmentType("pickup"); setStep("checkout"); }}
                 className={`border-2 rounded-xl p-4 text-center transition-colors cursor-pointer ${
                   fulfillmentType === "pickup"
-                    ? "border-[#5C1A1B] bg-[#5C1A1B]/5"
+                    ? "border-primary bg-primary/5"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
               >
-                <MapPin className="w-8 h-8 text-[#5C1A1B] mx-auto mb-2" />
-                <p className="text-base font-bold text-[#5C1A1B]">Pickup</p>
-                <p className="text-xs text-gray-500 mt-1">155 Main St, Maynard</p>
+                <MapPin className="w-8 h-8 text-primary mx-auto mb-2" />
+                <p className="text-base font-bold text-primary">Pickup</p>
+                <p className="text-xs text-gray-500 mt-1">{R.address.street}, {R.address.city}</p>
               </button>
 
               <button
                 onClick={() => setFulfillmentType("delivery")}
                 className={`border-2 rounded-xl p-4 text-center transition-colors cursor-pointer ${
                   fulfillmentType === "delivery"
-                    ? "border-[#C4973B] bg-[#C4973B]/5"
+                    ? "border-secondary bg-secondary/5"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
               >
-                <Truck className="w-8 h-8 text-[#C4973B] mx-auto mb-2" />
-                <p className="text-base font-bold text-[#5C1A1B]">Delivery</p>
+                <Truck className="w-8 h-8 text-secondary mx-auto mb-2" />
+                <p className="text-base font-bold text-primary">Delivery</p>
                 <p className="text-xs text-gray-500 mt-1">
                   {fulfillmentType === "delivery"
                     ? quoteLoading
@@ -825,21 +827,21 @@ export default function CartDrawer() {
                   placeholder="Street address *"
                   value={deliveryAddress}
                   onChange={(e) => setDeliveryAddress(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B]"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
                 />
                 <input
                   type="text"
                   placeholder="Apt / Suite / Floor (optional)"
                   value={deliveryApt}
                   onChange={(e) => setDeliveryApt(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B]"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
                 />
                 <input
                   type="text"
                   placeholder="Delivery instructions (optional)"
                   value={deliveryInstructions}
                   onChange={(e) => setDeliveryInstructions(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B]"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
                 />
 
                 <button
@@ -856,7 +858,7 @@ export default function CartDrawer() {
                     quoteLoading ||
                     quotedFee === 0
                       ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                      : "bg-[#C4973B] text-white hover:bg-[#d4a84b]"
+                      : "bg-secondary text-cream hover:bg-secondary-light"
                   }`}
                 >
                   {quoteLoading ? "Calculating fee..." : "Continue"}
@@ -904,7 +906,7 @@ export default function CartDrawer() {
                   <span>${deliveryFee.toFixed(2)}</span>
                 </div>
               )}
-              <div className="flex justify-between font-bold text-[#5C1A1B] text-base pt-1 border-t border-gray-200">
+              <div className="flex justify-between font-bold text-primary text-base pt-1 border-t border-gray-200">
                 <span>Total</span>
                 <span>${orderTotal.toFixed(2)}</span>
               </div>
@@ -920,7 +922,7 @@ export default function CartDrawer() {
                     onClick={() => { setSelectedTip(pct); setCustomTipInput(""); }}
                     className={`py-2 rounded-lg text-sm font-medium transition-colors ${
                       selectedTip === pct
-                        ? "bg-[#5C1A1B] text-white"
+                        ? "bg-primary text-cream"
                         : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     }`}
                   >
@@ -943,7 +945,7 @@ export default function CartDrawer() {
                   onClick={() => setSelectedTip("custom")}
                   className={`py-2 rounded-lg text-sm font-medium transition-colors ${
                     selectedTip === "custom"
-                      ? "bg-[#5C1A1B] text-white"
+                      ? "bg-primary text-cream"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
@@ -960,7 +962,7 @@ export default function CartDrawer() {
                     placeholder="0.00"
                     value={customTipInput}
                     onChange={(e) => setCustomTipInput(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B]"
+                    className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
                   />
                 </div>
               )}
@@ -1025,12 +1027,12 @@ export default function CartDrawer() {
                     value={promoInput}
                     onChange={(e) => { setPromoInput(e.target.value.toUpperCase()); setPromoError(""); }}
                     onKeyDown={(e) => e.key === "Enter" && handleApplyPromo()}
-                    className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B] uppercase"
+                    className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary uppercase"
                   />
                   <button
                     onClick={handleApplyPromo}
                     disabled={promoLoading || !promoInput.trim()}
-                    className="px-4 py-2 bg-[#5C1A1B] text-white text-sm font-medium rounded-lg hover:bg-[#6d2a2b] transition-colors disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-primary text-cream text-sm font-medium rounded-lg hover:bg-primary-light transition-colors disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
                   >
                     {promoLoading ? "..." : "Apply"}
                   </button>
@@ -1048,21 +1050,21 @@ export default function CartDrawer() {
                 placeholder="Your name *"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B]"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
               />
               <input
                 type="email"
                 placeholder="Email *"
                 value={customerEmail}
                 onChange={(e) => { setCustomerEmail(e.target.value); if (appliedPromo) { setAppliedPromo(null); setPromoError("Promo removed — re-apply after changing email"); } }}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B]"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
               />
               <input
                 type="tel"
                 placeholder="Phone *"
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B]"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
               />
             </div>
 
@@ -1084,7 +1086,7 @@ export default function CartDrawer() {
                 !customerEmail.trim() ||
                 !customerPhone.trim()
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-[#C4973B] text-white hover:bg-[#d4a84b]"
+                  : "bg-secondary text-cream hover:bg-secondary-light"
               }`}
             >
               {isCheckingOut

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Dish — image placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.15" y2="1">
+      <stop offset="0" stop-color="#213028"/>
+      <stop offset="1" stop-color="#141110"/>
+    </linearGradient>
+    <pattern id="dots" width="48" height="48" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <circle cx="6" cy="6" r="2.1" fill="#EDB65C" fill-opacity="0.110"/>
+    </pattern>
+  </defs>
+  <rect width="900" height="900" fill="url(#bg)"/>
+  <rect width="900" height="900" fill="url(#dots)"/>
+  <path d="M171 770.8499999999999 L171 408.15000000000003 C 171 207.27000000000004 288.18 129.15000000000003 450 129.15000000000003 C 611.82 129.15000000000003 729 207.27000000000004 729 408.15000000000003 L729 770.8499999999999 Z" fill="none" stroke="#EDB65C" stroke-opacity="0.220" stroke-width="2.5"/>
+  <path d="M204 737.8499999999999 L204 408.15000000000003 C 204 231.03000000000003 307.32 162.15000000000003 450 162.15000000000003 C 592.6800000000001 162.15000000000003 696 231.03000000000003 696 408.15000000000003 L696 737.8499999999999 Z" fill="none" stroke="#7C9A5B" stroke-opacity="0.280" stroke-width="2.5"/>
+  <circle cx="450" cy="411.498" r="67" fill="none" stroke="#EDB65C" stroke-opacity="0.300" stroke-width="2"/>
+  <circle cx="450" cy="411.498" r="4" fill="#EDB65C" fill-opacity="0.550"/>
+  <text x="450" y="527.004" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="56" letter-spacing="11" fill="#F6F1E8" fill-opacity="0.9">AROMA DELIGHT</text>
+  <text x="450" y="572.004" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="22" letter-spacing="5" fill="#F6F1E8" fill-opacity="0.4">DISH &#183; PLACEHOLDER</text>
+</svg>

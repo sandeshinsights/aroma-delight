@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUberQuote } from "@/lib/uber-direct";
+import { getRestaurantData } from "@/lib/data";
+
+const R = getRestaurantData();
 
 // This route waits on Uber's quote API, which is the slowest external call in
 // the ordering flow and the one that blocks the address form.
@@ -25,7 +28,7 @@ export async function POST(req: NextRequest) {
     }
 
     const quote = await getUberQuote(
-      "155 Main Street, Maynard, MA 01754",
+      R.address.full,
       address.trim(),
       pickupReadyDt
     );
@@ -41,8 +44,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        error:
-          "Sorry, this address is outside our delivery area. We currently deliver within ~10 miles of Cafe of India (155 Main St, Maynard, MA). Please try a different address or choose pickup.",
+        error: `Sorry, this address is outside our delivery area. We currently deliver within ~10 miles of ${R.name} (${R.address.street}, ${R.address.city}, ${R.address.state}). Please try a different address or choose pickup.`,
         fee: 0,
         customerPays: 0,
         restaurantPays: 0,

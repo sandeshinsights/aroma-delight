@@ -1,244 +1,2309 @@
 {
-  "banner": "/images/menu/menu-banner.jpg",
+  "banner": "",
   "categories": [
     {
       "id": "category-1",
-      "name": "Hot Appetizers",
-      "description": "Crispy, flavorful starters fresh from our kitchen",
+      "name": "Soups",
+      "description": "Warm, spiced starters",
       "items": [
-        { "id": "menu-1", "name": "Vegetable Samosa", "price": 7.99, "description": "Light spicy turnovers stuffed with potatoes and green peas.", "tags": ["Vegetarian"], "badge": "", "image": "/images/dishes/menu-1-vegetable-samosa.jpg" },
-        { "id": "menu-2", "name": "Lamb Samosa", "price": 9.99, "description": "Light spicy turnovers with minced lamb and spices.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-3", "name": "Gobi 65", "price": 10.99, "description": "A southern delight, battered cauliflower florets sauteed with spice chili garlic sauce", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-4", "name": "Paneer Pakoras", "price": 8.99, "description": "Fresh home made cheese, deep fried in spicy chickpea batter.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-5", "name": "Vegetable Pakoras", "price": 7.99, "description": "Fresh cut vegetables, deep fried in chickpea batter.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-6", "name": "Aloo Tikki", "price": 6.99, "description": "Flavorful potatoes patties and deep fried in chickpea batter.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-7", "name": "Lasooni Gobi", "price": 10.99, "description": "Garlicky cauliflower with scallions and tomatoes.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-8", "name": "Cafe Vegetarian Appetizer Platter", "price": 11.00, "description": "Assorted combination of vegetable pakoras, samosa, tikki and cheese pakora.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-9", "name": "Chicken Pakoras", "price": 9.99, "description": "Boneless tender pieces of chicken, deep fried in chickpea batter.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-10", "name": "Chicken Tikka", "price": 9.99, "description": "Tender pieces of white meat chicken marinated in spicy yogurt and cooked on skewers in tandoor a clay oven.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-11", "name": "Chefs Special Combination Appetizer Platter", "price": 14.99, "description": "Chefs daily selection of vegetarian and non-vegetarian appetizers.", "tags": ["Chef's Special"], "badge": "Chef's Choice", "image": "" },
-        { "id": "menu-12", "name": "Chicken 65", "price": 10.99, "description": "Southern delight and battered chicken sauteed with chilly garlic sauce", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-13", "name": "Tawa Shrimp", "price": 13.99, "description": "Shrimp sauteed with onions and peppers with Indian spices", "tags": ["Non-Vegetarian"], "badge": "", "image": "" }
-      ]
-    },
-    {
-      "id": "category-15",
-      "name": "Nepali Food",
-      "description": "Authentic Nepali flavors — momos and chow mein",
-      "items": [
-        { "id": "menu-109", "name": "Veg MOMO (Fry)", "price": 13.99, "description": "Crispy fried vegetable dumplings served with dipping sauce.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-110", "name": "Veg MOMO (Steamed)", "price": 13.99, "description": "Steamed vegetable dumplings served with dipping sauce.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-111", "name": "Chicken MOMO (Fry)", "price": 14.99, "description": "Crispy fried chicken dumplings served with dipping sauce.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-112", "name": "Chicken MOMO (Steamed)", "price": 14.99, "description": "Steamed chicken dumplings served with dipping sauce.", "tags": ["Non-Vegetarian"], "badge": "", "image": "/images/dishes/momo-steamed.jpg" },
-        { "id": "menu-113", "name": "Veg Chow Mein (Nepali Flavor)", "price": 11.99, "description": "Stir-fried noodles with fresh vegetables in Nepali-style spices.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-114", "name": "Chicken Chow Mein (Nepali Flavor)", "price": 12.99, "description": "Stir-fried noodles with chicken and vegetables in Nepali-style spices.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" }
+        {
+          "id": "menu-1",
+          "name": "Mulligatawny Soup",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-2",
+          "name": "Chicken Soup",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-3",
+          "name": "Tomato & Coconut Soup",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-2",
-      "name": "Cold Appetizers",
-      "description": "Refreshing and tangy starters",
+      "name": "Salads",
+      "description": "Fresh and simple",
       "items": [
-        { "id": "menu-14", "name": "Vegetable Samosa Chat", "price": 10.99, "description": "Light spicy turnovers stuffed with potatoes and green peas.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-15", "name": "Aloo Tiki Chat", "price": 10.99, "description": "Spicy potato patties tossed with mint and yogurt tangy sauce.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-16", "name": "Bhel Poori", "price": 9.99, "description": "Puffed rice with potatoes, onions, chat masala and chutneys.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-17", "name": "Chicken Chat", "price": 10.99, "description": "Chicken cubes with cucumber, onions and yogurt mint sauce.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" }
+        {
+          "id": "menu-4",
+          "name": "Green Salad",
+          "price": 12,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-5",
+          "name": "Desi Salad",
+          "price": 8,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-6",
+          "name": "Grilled Shrimp Salad",
+          "price": 12,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-7",
+          "name": "Grilled Chicken Salad",
+          "price": 13,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-3",
-      "name": "Soup",
-      "description": "Warm and comforting soups",
+      "name": "Vegetarian Appetizers",
+      "description": "Crispy vegetarian starters from the kitchen",
       "items": [
-        { "id": "menu-18", "name": "Mulligatawny Soup", "price": 6.49, "description": "Made with lentils, vegetables and spices.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-19", "name": "Chicken Soup", "price": 6.49, "description": "Boneless chicken soup, with herbs and spices.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-20", "name": "Coconut Soup", "price": 7.00, "description": "Creamy shredded coconut milk soup, with nuts and flavored with Indian cardamom.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-21", "name": "Tomato Soup", "price": 6.49, "description": "Tomato , black pepper and spices.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" },
-        { "id": "menu-22", "name": "Mushroom Soup", "price": 6.49, "description": "Sliced mushrooms with Indian seasonings", "tags": ["Vegetarian"], "badge": "", "image": "" }
+        {
+          "id": "menu-8",
+          "name": "Vegetable Samosa (2)",
+          "price": 7,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-9",
+          "name": "Vegetable Pakora (5)",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-10",
+          "name": "Aloo Tikki (2)",
+          "price": 7,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-11",
+          "name": "Paneer Pakora",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-12",
+          "name": "Punjab Vegetarian Platter",
+          "price": 12,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-13",
+          "name": "Noodle Samosa",
+          "price": 10,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-14",
+          "name": "Veggie Momo (10)",
+          "price": 15,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-15",
+          "name": "Paneer Momo (10)",
+          "price": 15,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-4",
-      "name": "Salad",
-      "description": "Fresh garden salads",
+      "name": "Cold Appetizers",
+      "description": "Tangy, chilled chaat and more",
       "items": [
-        { "id": "menu-23", "name": "Garden Salad", "price": 8.99, "description": "Fresh garden greens and tomatoes.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" },
-        { "id": "menu-24", "name": "Grilled Chicken Salad", "price": 11.99, "description": "Grilled chicken cubes with lettuce, tomatoes and cucumbers.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" }
+        {
+          "id": "menu-16",
+          "name": "Chicken Chaat",
+          "price": 10,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-17",
+          "name": "Bhelpuri",
+          "price": 8,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-18",
+          "name": "Samosa Chaat",
+          "price": 12,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-19",
+          "name": "French Fries",
+          "price": 7,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-5",
-      "name": "Dinner",
-      "description": "Classic Indian dinner entrées served with basmati rice and chutney",
+      "name": "Non-Veg Appetizers",
+      "description": "Tandoori bites and fritters",
       "items": [
-        { "id": "menu-25", "name": "Tikka Masala", "price": 18.99, "description": "Served with basmati rice & chutney. Tomato & Light Cream sauce with herbs and spices.", "tags": ["Gluten Free", "Nut Free"], "badge": "", "image": "/images/dishes/menu-25-tikka-masala.jpg" },
-        { "id": "menu-26", "name": "Curry", "price": 18.99, "description": "Home style roasted cumin, garlic, onion, sauce.", "tags": ["Gluten Free", "Dairy Free", "Nut Free"], "badge": "", "image": "" },
-        { "id": "menu-27", "name": "Saag", "price": 18.99, "description": "Fresh Chopped spinach with ginger, garlic, onion and sauce.", "tags": ["Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-28", "name": "Korma", "price": 18.99, "description": "Mild cream sauce with nuts and raisins.", "tags": ["Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-29", "name": "Madras", "price": 18.99, "description": "Curry leaves, mustard seeds, coconut milk sauce with a touch of ginger & garlic.", "tags": ["Gluten Free", "Dairy Free"], "badge": "", "image": "" },
-        { "id": "menu-30", "name": "Vindaloo", "price": 18.99, "description": "Fiery sauce, sundried Kashmiri red chili, potato, tamarind medium or spicy only.", "tags": ["Gluten Free", "Dairy Free"], "badge": "", "image": "" }
+        {
+          "id": "menu-20",
+          "name": "Meat Samosa",
+          "price": 7,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-21",
+          "name": "Chicken Pakora",
+          "price": 12,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-22",
+          "name": "Chicken Tikka",
+          "price": 10,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-23",
+          "name": "Fish Pakora",
+          "price": 13,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-24",
+          "name": "Punjab Non-Vegetarian Platter",
+          "price": 13,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-25",
+          "name": "Chicken Momo (10)",
+          "price": 15,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-6",
-      "name": "Indo Chinese",
-      "description": "A fusion of Indian and Chinese flavors",
+      "name": "South Indian",
+      "description": "Dosas and uttapam",
       "items": [
-        { "id": "menu-31", "name": "Vegetable Manchurian", "price": 16.99, "description": "Crispy vegetable rounds in a mild soy garlic sauce, served with basmati rice", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-32", "name": "Chicken Manchurian", "price": 17.99, "description": "Seasoned chicken with chopped onions and peppers in a mild soy garlic sauce, served with basmati rice", "tags": ["Non-Vegetarian"], "badge": "", "image": "" }
+        {
+          "id": "menu-26",
+          "name": "Masala Dosa",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-27",
+          "name": "Chicken Dosa",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-28",
+          "name": "Lamb Masala Dosa",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-29",
+          "name": "Vegetable Uttapam",
+          "price": 15,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-30",
+          "name": "Rumali Roti Dosa",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-7",
-      "name": "Vegetarian",
-      "description": "Authentic vegetarian dishes served with basmati rice and chutneys",
+      "name": "Combination Dinners",
+      "description": "Complete meals for one or two",
       "items": [
-        { "id": "menu-33", "name": "Aloo Mutter", "price": 16.99, "description": "Fresh green peas cooked in a delicately spiced sauce with potato balls. Served with basmati rice and chutneys. Gluten free.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-34", "name": "Saag Paneer", "price": 16.99, "description": "Cubes of home made cheese cooked with fresh spinach and spices. Served with basmati rice and chutneys. Gluten free.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "/images/dishes/menu-34-saag-paneer.jpg" },
-        { "id": "menu-35", "name": "Shahi Aloo Gobhi", "price": 16.99, "description": "Cauliflower and potatoes cooked with tomato, onion, herbs and spices. Served with basmati rice and chutneys. Gluten free. Vegan.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-36", "name": "Baingan Bhartha", "price": 16.99, "description": "An eggplant specialty baked over open flame, mashed, then sauteed with onions, tomato, garlic, ginger and other spices. Served with basmati rice and chutneys. Gluten free. Vegan.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-37", "name": "Aloo Palak", "price": 16.99, "description": "Fresh spinach, potato balls and freshly ground garlic, ginger and exotic spices. Served with basmati rice and chutneys. Gluten free. Vegan.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-38", "name": "Mixed Vegetables", "price": 16.99, "description": "Mixed garden fresh vegetables cooked with herbs and spices. Served with basmati rice and chutneys. Gluten free. Vegan.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-39", "name": "Aloo Chole", "price": 16.99, "description": "Whole chickpeas and potato balls cooked with onions, tomatoes, spices and herbs. Served with basmati rice and chutneys. Gluten free. Vegan.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-40", "name": "Bhindi Aloo", "price": 16.99, "description": "Fresh okra sauteed with onions, ginger, potatoes and herbs.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-41", "name": "Dal Maharani", "price": 16.99, "description": "Black lentils cooked with fresh herbs and spices. Served with basmati rice and chutneys. Gluten free. Vegan.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-42", "name": "Shahi Navratan Korma", "price": 16.99, "description": "9 different fresh garden vegetables cooked in a creamy sauce with almonds, cashews, raisins and spices. Served with basmati rice and chutneys. Gluten free.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-43", "name": "Shahi Paneer Korma", "price": 16.99, "description": "Homemade cheese cubes sauteed with fresh ginger, garlic, onion and tomato garnished with nuts and raisins and cooked in a creamy sauce. Served with basmati rice and chutneys. Gluten free.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-44", "name": "Malai Kofta", "price": 16.99, "description": "Vegetable balls cooked in an onion and creamy tomato sauce with almonds, cashews and raisins. Served with basmati rice and chutneys. Gluten free.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-45", "name": "Mushroom Curry", "price": 16.99, "description": "Sliced mushroom cooked with curry sauce. Served with basmati rice and chutneys. Gluten free.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-46", "name": "Paneer Tikka Masala", "price": 16.99, "description": "Homemade cheese cooked in creamy tomato sauce. Served with basmati rice and chutneys. Gluten free.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-47", "name": "Yellow Dal Fry", "price": 16.99, "description": "Yellow lentil cooked with fried spices and herbs. Served with basmati rice and chutneys. Gluten free. Vegan.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-48", "name": "Aloo Baingan", "price": 16.99, "description": "Cubed potatoes tossed with chopped eggplant, roasted with Indian spices.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-49", "name": "Mutter Paneer", "price": 16.99, "description": "Fresh green peas cooked with home made cheese cubes and a variety of herbs. Served with basmati rice and chutneys. Gluten free.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" }
+        {
+          "id": "menu-31",
+          "name": "Vegetarian Thali",
+          "price": 30,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-32",
+          "name": "Vegetarian Combo Dinner (for 2)",
+          "price": 50,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-33",
+          "name": "Non-Vegetarian Dinner (for 1)",
+          "price": 35,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-34",
+          "name": "Royal Combo Dinner (for 2)",
+          "price": 55,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-8",
-      "name": "Rice Specialties",
-      "description": "Aromatic biryanis served with raita and chutney",
+      "name": "Tandoor Specials",
+      "description": "From the clay oven",
       "items": [
-        { "id": "menu-50", "name": "Goat Biryani", "price": 19.99, "description": "Pieces of bone in goat cooked with basmati rice, spices and garnished with nuts and raisins. Served with raita and chutney. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-51", "name": "Vegetable Biryani", "price": 16.99, "description": "Basmati rice cooked with exotic spices, herbs, fresh vegetables, cashews, almonds and raisins. Biryani is served with raita and chutney. Gluten free. Vegan.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-52", "name": "Chicken Biryani", "price": 17.99, "description": "Basmati rice, chicken chunks, fresh vegetables, nuts, raisins and spices garnished with fresh coriander. Biryani is served with raita and chutney. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-53", "name": "Lamb Biryani", "price": 19.99, "description": "Juicy pieces of lamb, fresh vegetables, basmati rice and spices, garnished with almonds, cashews and raisins. Biryani is served with raita and chutney. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-54", "name": "Shrimp Biryani", "price": 21.99, "description": "Saffron flavored basmati rice cooked with shrimps, almonds, cashews, raisins and vegetables. Biryani is served with raita and chutney. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-55", "name": "Cafe Of India Special Biryani", "price": 21.99, "description": "Basmati rice cooked in butter with shrimps, fish, chicken, lamb, paneer cheese, vegetables, almonds, cashews, raisins and more. Biryani is served with raita and chutney. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "House Special", "image": "" }
+        {
+          "id": "menu-35",
+          "name": "Chicken Tandoori (Half)",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-36",
+          "name": "Chicken Tandoori (Full)",
+          "price": 30,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-37",
+          "name": "Tandoori Mixed Grill",
+          "price": 25,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-38",
+          "name": "Tandoori Shrimp",
+          "price": 24,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-39",
+          "name": "Tandoori Paneer Tikka",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-40",
+          "name": "Tandoori Chicken Tikka",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-41",
+          "name": "Chicken Seekh Kebab",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-42",
+          "name": "Kali Mirch Tikka",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-9",
-      "name": "Tandoori Specials",
-      "description": "Traditional clay oven specialties served with onions, potatoes, broccoli, peppers and basmati rice",
+      "name": "Modern Indian",
+      "description": "House creations and contemporary plates",
       "items": [
-        { "id": "menu-56", "name": "Malai Chicken Kabab", "price": 19.99, "description": "Boneless chicken marinated with nuts and mild tandoor spices.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-57", "name": "Tandoori Chicken", "price": 19.99, "description": "Tender chicken, marinated in yogurt and spices. Served with onions, potatoes, broccoli and peppers with side of basmati rice. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "/images/dishes/menu-57-tandoori-chicken.jpg" },
-        { "id": "menu-58", "name": "Chicken Tikka Kabab", "price": 19.99, "description": "Boneless white meat chicken cubes marinated in yogurt and freshly ground spices.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-59", "name": "Seekh Kabab", "price": 21.99, "description": "Finely minced lamb, seasoned with chopped onions, herbs and spices. Served with onions, potatoes, broccoli and peppers with side of basmati rice. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-60", "name": "Tandoori Shrimp", "price": 23.00, "description": "Fresh jumbo shrimp marinated in delicately spiced yogurt and spices. Served with onions, potatoes, broccoli and peppers with side of basmati rice. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-61", "name": "Tandoori Mixed Grill", "price": 25.00, "description": "Combination of sizzling tandoori specialties tangari chicken, chicken tikka, boti kabab, seekh kabab and tandoori shrimp. Served with onions, potatoes, broccoli and peppers with side of basmati rice. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-62", "name": "Tandoori Salmon Tikka", "price": 25.00, "description": "Salmon fillet marinated with chefs special blend. Served with onions, potatoes, broccoli and peppers with side of basmati rice. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-63", "name": "Boti Kabab", "price": 25.00, "description": "Chunks of lamb marinated in yogurt and spices. Served with onions, potatoes, broccoli and peppers with side of basmati rice. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" }
+        {
+          "id": "menu-43",
+          "name": "Beef Kofta",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-44",
+          "name": "Mango Chicken",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-45",
+          "name": "Lamb Kadai",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-46",
+          "name": "Lamb Bhuna",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-47",
+          "name": "Garlic Chicken",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-48",
+          "name": "Garlic Shrimp",
+          "price": 22,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-49",
+          "name": "Tofu Bhurji",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-50",
+          "name": "Chana Paneer Masala",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-51",
+          "name": "Eggplant Chicken",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-52",
+          "name": "Murgh Tikka Masala",
+          "price": 27,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-10",
-      "name": "Cafe Specials",
-      "description": "Chef's signature creations",
+      "name": "Chicken Dishes",
+      "description": "Served with basmati rice",
       "items": [
-        { "id": "menu-65", "name": "Gobi Manchurian", "price": 10.99, "description": "Deep fried florets of cauliflower or chicken sauteed with chopped onion and garlic served in soy and chili sauce.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-66", "name": "Green Chili Chicken", "price": 18.99, "description": "Hot green chilis, green and red peppers, garam masala and ginger garlic sauce.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-67", "name": "Chicken Mango", "price": 17.99, "description": "Chicken cooked in a creamy mango sauce.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-68", "name": "Lamb Mushroom", "price": 19.99, "description": "Lamb cubes cooked with ginger, garlic and spinach.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-69", "name": "Lamb Roganjosh", "price": 19.99, "description": "Lamb cooked in yogurt, cardamom saffron curry sauce, Kashmiri style. Gluten free.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-70", "name": "Goan Shrimp Curry", "price": 20.99, "description": "Gluten free. Shrimp cooked Goan Style with coconut milk and curry leaves.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-71", "name": "Coconut Chicken", "price": 17.99, "description": "Gluten free. Boneless chicken pieces cooked in a mild coconut cream sauce.", "tags": ["Non-Vegetarian", "Gluten Free"], "badge": "", "image": "/images/dishes/menu-71-coconut-chicken.jpg" },
-        { "id": "menu-115", "name": "Butter Chicken", "price": 17.99, "description": "Boneless tandoori chicken simmered in a creamy tomato and butter sauce.", "tags": ["Non-Vegetarian"], "badge": "", "image": "/images/dishes/menu-115-butter-chicken.jpg" }
+        {
+          "id": "menu-53",
+          "name": "Chicken Curry",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-54",
+          "name": "Chicken Tikka Masala",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-55",
+          "name": "Butter Chicken",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-56",
+          "name": "Chicken Daal",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-57",
+          "name": "Coconut Chicken Curry",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-58",
+          "name": "Chicken Tikka Saag",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-59",
+          "name": "Chicken Vindaloo",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-60",
+          "name": "Chicken Korma",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-61",
+          "name": "Chicken Kadai",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-62",
+          "name": "Chicken Manchurian",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-63",
+          "name": "Chicken Makhani",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-64",
+          "name": "Chicken Bhuna",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-65",
+          "name": "Chicken Do-Piaza",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-66",
+          "name": "Chilli Chicken",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-67",
+          "name": "Chicken Madras",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-11",
-      "name": "Breads / Naan",
-      "description": "Freshly baked in our tandoor clay oven",
+      "name": "Lamb Dishes",
+      "description": "Served with basmati rice",
       "items": [
-        { "id": "menu-72", "name": "Plain Naan", "price": 4.95, "description": "Leavened, fine flour handmade bread.", "tags": ["Vegetarian"], "badge": "", "image": "/images/dishes/menu-72-plain-naan.jpg" },
-        { "id": "menu-73", "name": "Plain Paratha", "price": 5.99, "description": "Multi-layered whole wheat bread, cooked with butter on a griddle.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-74", "name": "Chapati", "price": 4.99, "description": "Thin, unleavened bread, cooked on a griddle served with or without butter.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" },
-        { "id": "menu-75", "name": "Garlic Naan", "price": 5.95, "description": "Unleavened white flour bread stuffed with chopped fresh garlic and coriander and baked in our tandoor.", "tags": ["Vegetarian"], "badge": "", "image": "/images/dishes/menu-75-garlic-naan.jpg" },
-        { "id": "menu-76", "name": "Green Chilli Naan", "price": 5.99, "description": "Naan stuffed with onions and green chilies.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-77", "name": "Keema Naan", "price": 5.99, "description": "White flour bread stuffed with spices and minced lamb.", "tags": ["Non-Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-78", "name": "Tandoori Roti", "price": 4.95, "description": "Round shaped whole wheat bread baked in a clay oven. No dairy.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" },
-        { "id": "menu-79", "name": "Onion Kulcha", "price": 5.99, "description": "Unleavened white bread stuffed with onions, baked in our tandoor.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-80", "name": "Poori", "price": 5.95, "description": "Whole wheat deep fried puffed bread.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-81", "name": "Aloo Paratha", "price": 6.00, "description": "Whole wheat bread, stuffed with spiced potatoes, cooked on a griddle with butter.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-82", "name": "Aloo Naan", "price": 5.99, "description": "Unleavened bread stuffed with potatoes and peas and baked in tandoor.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-83", "name": "Peshawary Naan", "price": 5.25, "description": "Unleavened white flour stuffed with raisins and almonds, baked in a clay oven.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-84", "name": "Cafe Basket", "price": 12.50, "description": "Plain naan, garlic naan, Tandoori roti.", "tags": ["Vegetarian"], "badge": "", "image": "" }
+        {
+          "id": "menu-68",
+          "name": "Lamb Curry",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-69",
+          "name": "Lamb Korma",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-70",
+          "name": "Lamb Coconut Curry",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-71",
+          "name": "Lamb Tikka Masala",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-72",
+          "name": "Lamb Saag",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-73",
+          "name": "Lamb Vindaloo",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-74",
+          "name": "Lamb Roganjosh",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-75",
+          "name": "Lamb Hyderabadi",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-76",
+          "name": "Lamb Madras",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-77",
+          "name": "Keema Mutter",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-12",
-      "name": "Side Orders",
-      "description": "Accompaniments to complement your meal",
+      "name": "Beef Dishes",
+      "description": "Served with basmati rice",
       "items": [
-        { "id": "menu-85", "name": "Raita", "price": 3.99, "description": "Yogurt-based condiment with cucumbers and spices.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-86", "name": "Mixed Pickle", "price": 3.99, "description": "Traditional Indian pickled vegetables.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" },
-        { "id": "menu-87", "name": "Mango Chutney", "price": 3.99, "description": "Sweet and tangy mango relish.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" },
-        { "id": "menu-88", "name": "Basmati Rice", "price": 3.25, "description": "Steamed aromatic basmati rice.", "tags": ["Vegetarian", "Vegan", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-89", "name": "Plain Yogurt", "price": 3.25, "description": "Fresh plain yogurt.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-90", "name": "Plain Yogurt", "price": 2.99, "description": "Fresh plain yogurt.", "tags": ["Vegetarian", "Gluten Free"], "badge": "", "image": "" },
-        { "id": "menu-91", "name": "Masala Sauce", "price": 6.99, "description": "House-made spiced curry sauce.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-92", "name": "Jeera Aloo", "price": 9.99, "description": "Potato cubes sauteed with cumin and spices.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-93", "name": "Chili Paneer", "price": 10.99, "description": "Paneer sauteed with chilies, onions and peppers.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-94", "name": "Papadum", "price": 3.99, "description": "A thin crisp from lentil, chickpea flour.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" }
+        {
+          "id": "menu-78",
+          "name": "Beef Boti Tikka Masala",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-79",
+          "name": "Beef Curry",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-80",
+          "name": "Beef Coconut Curry",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-81",
+          "name": "Beef Vindaloo",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-82",
+          "name": "Beef Korma",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-83",
+          "name": "Beef Roganjosh",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-84",
+          "name": "Beef Saag",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-85",
+          "name": "Beef Hyderabadi",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-86",
+          "name": "Beef Madras",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-87",
+          "name": "Beef Sali Boti",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-13",
-      "name": "Desserts",
-      "description": "Traditional Indian sweets",
+      "name": "Goat Dishes (with Bone)",
+      "description": "Kashmiri-style, served with basmati rice",
       "items": [
-        { "id": "menu-95", "name": "Kheer", "price": 4.95, "description": "Gently cooked rice in milk flavored with cardamom and hint of black peppers with pistachios.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-96", "name": "Rasmalai", "price": 4.95, "description": "Homemade cheese patties, cooked in a special condensed milk with pistachios and rose water.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-97", "name": "Gulab Jamun", "price": 4.95, "description": "Deep fried cheese balls simmered in honey syrup.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-98", "name": "Vanilla Ice Cream", "price": 4.95, "description": "Classic vanilla ice cream.", "tags": ["Vegetarian"], "badge": "", "image": "" }
+        {
+          "id": "menu-88",
+          "name": "Kashmiri Goat Curry",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-89",
+          "name": "Kashmiri Goat Vindaloo",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-90",
+          "name": "Kashmiri Goat Madras",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-91",
+          "name": "Kashmiri Goat Hyderabadi",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-92",
+          "name": "Kashmiri Goat Korma",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-93",
+          "name": "Kashmiri Goat Saag",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     },
     {
       "id": "category-14",
-      "name": "Beverages",
-      "description": "Refreshing drinks",
+      "name": "Shrimp or Fish Dishes",
+      "description": "Choose shrimp or fish; served with basmati rice",
       "items": [
-        { "id": "menu-99", "name": "Tea", "price": 2.99, "description": "Hot Indian tea.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-100", "name": "Masala Tea", "price": 3.99, "description": "Darjeeling tea made with flavorful spices and milk boiled together in water.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-101", "name": "Sweet Lassi", "price": 5.99, "description": "Sweet yogurt drink blended smooth.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-102", "name": "Mango Lassi", "price": 5.99, "description": "A delicious sweet yogurt shake with rose water.", "tags": ["Vegetarian"], "badge": "", "image": "/images/dishes/menu-102-mango-lassi.jpg" },
-        { "id": "menu-103", "name": "Strawberry Lassi", "price": 5.99, "description": "Fresh strawberry yogurt drink.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-104", "name": "Salty Lassi", "price": 5.99, "description": "Traditional salty yogurt drink with spices.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-105", "name": "Fruit Juice", "price": 3.99, "description": "Fresh fruit juice.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" },
-        { "id": "menu-106", "name": "Soda", "price": 3.25, "description": "Carbonated beverage.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" },
-        { "id": "menu-107", "name": "Ice Tea", "price": 3.25, "description": "Chilled iced tea.", "tags": ["Vegetarian"], "badge": "", "image": "" },
-        { "id": "menu-108", "name": "Lemonade", "price": 3.99, "description": "Fresh squeezed lemonade.", "tags": ["Vegetarian", "Vegan"], "badge": "", "image": "" }
+        {
+          "id": "menu-94",
+          "name": "Kerala Shrimp or Fish Curry",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-95",
+          "name": "Shrimp or Fish Masala",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-96",
+          "name": "Seafood Masala",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-97",
+          "name": "Madrasi Shrimp or Fish",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-98",
+          "name": "Goa Shrimp or Fish Curry",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-99",
+          "name": "Shrimp or Fish Curry",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-100",
+          "name": "Shrimp or Fish Saag",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-101",
+          "name": "Shrimp or Fish Balti",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-102",
+          "name": "Shrimp or Fish Korma",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-103",
+          "name": "Shrimp or Fish Vindaloo",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-104",
+          "name": "Shrimp or Fish Xacuti",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-105",
+          "name": "Shrimp or Fish Madras",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-106",
+          "name": "Shrimp or Fish Hyderabadi",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-107",
+          "name": "Shrimp or Fish Jalfrezi",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-15",
+      "name": "Vegetarian Dishes",
+      "description": "Served with basmati rice",
+      "items": [
+        {
+          "id": "menu-108",
+          "name": "Paneer Kadai",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-109",
+          "name": "Baingan Bhartha",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-110",
+          "name": "Malai Kofta",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-111",
+          "name": "Mixed Vegetables",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-112",
+          "name": "Gobi Achari",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-113",
+          "name": "Shahi Navratan Korma",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-114",
+          "name": "Dal Makhani",
+          "price": 16,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-115",
+          "name": "Bhindi Masala",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-116",
+          "name": "Paneer Makhani",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-117",
+          "name": "Paneer Bhurji",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-118",
+          "name": "Mutter Paneer or Aloo",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-119",
+          "name": "Saag Paneer or Aloo",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-120",
+          "name": "Dal Tadka",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-121",
+          "name": "Chana Masala",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-122",
+          "name": "Shahi Paneer",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-123",
+          "name": "Aloo Gobi",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-124",
+          "name": "Chili Paneer",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-125",
+          "name": "Vegetable Vindaloo",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-126",
+          "name": "Aloo Chole",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-127",
+          "name": "Veggie Tikka Masala",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-16",
+      "name": "Tofu (Vegan)",
+      "description": "Fully plant-based; served with basmati rice",
+      "items": [
+        {
+          "id": "menu-128",
+          "name": "Tofu Mango",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-129",
+          "name": "Tofu Vindaloo",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-130",
+          "name": "Tofu Jalfrezi",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-131",
+          "name": "Tofu Tikka Masala",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-132",
+          "name": "Tofu Curry",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-133",
+          "name": "Tofu Saag",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-17",
+      "name": "Biryani",
+      "description": "Basmati rice specialties, served with raita",
+      "items": [
+        {
+          "id": "menu-134",
+          "name": "Vegetable Biryani",
+          "price": 16,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-135",
+          "name": "Chicken Biryani",
+          "price": 18,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-136",
+          "name": "Lamb Biryani",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-137",
+          "name": "Goat Biryani",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-138",
+          "name": "Beef Biryani",
+          "price": 20,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-139",
+          "name": "Shrimp Biryani",
+          "price": 21,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-140",
+          "name": "Special Biryani",
+          "price": 19,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-141",
+          "name": "Lemon Rice",
+          "price": 16,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-142",
+          "name": "Kashmiri Peas Pullao",
+          "price": 17,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-18",
+      "name": "Naan",
+      "description": "Fresh from the tandoor",
+      "items": [
+        {
+          "id": "menu-143",
+          "name": "Plain Naan",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-144",
+          "name": "Aloo Naan",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-145",
+          "name": "Cheese Naan",
+          "price": 7,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-146",
+          "name": "Peshawari Naan",
+          "price": 7,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-147",
+          "name": "Garlic Naan",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-148",
+          "name": "Chicken Coconut Naan",
+          "price": 7,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-149",
+          "name": "Pista Coconut Naan",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-150",
+          "name": "Paneer Naan",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-151",
+          "name": "Royal Special Bread Basket (Lg)",
+          "price": 12,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-152",
+          "name": "Garlic Chili Naan",
+          "price": 7,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-19",
+      "name": "Special Breads",
+      "description": "Tandoor and griddle breads",
+      "items": [
+        {
+          "id": "menu-153",
+          "name": "Chapathi",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-154",
+          "name": "Tandoori Roti",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-155",
+          "name": "Poori (2)",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-156",
+          "name": "Onion Kulcha",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-157",
+          "name": "Bhathura",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-158",
+          "name": "Rumali Roti",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-20",
+      "name": "Paratha",
+      "description": "Layered griddle breads",
+      "items": [
+        {
+          "id": "menu-159",
+          "name": "Plain Paratha",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-160",
+          "name": "Gobhi Paratha",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-161",
+          "name": "Aloo Paratha",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-162",
+          "name": "Mint Paratha",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-163",
+          "name": "Lachha Paratha",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-164",
+          "name": "Keema Paratha",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Non-Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-21",
+      "name": "Rice & Sides",
+      "description": "Accompaniments",
+      "items": [
+        {
+          "id": "menu-165",
+          "name": "Basmati Rice",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-166",
+          "name": "Raita",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-167",
+          "name": "Plain Yogurt",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-168",
+          "name": "Papadum",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-169",
+          "name": "Mixed Pickle",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-170",
+          "name": "Mint Chutney",
+          "price": 4,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-171",
+          "name": "Onion Chutney",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-172",
+          "name": "Tamarind Chutney",
+          "price": 4,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-173",
+          "name": "Mango Chutney",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-22",
+      "name": "Beverages",
+      "description": "Lassis, shakes and more",
+      "items": [
+        {
+          "id": "menu-174",
+          "name": "Pistachio Shake",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-175",
+          "name": "Fruit Juice",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-176",
+          "name": "Mango Lassi",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-177",
+          "name": "Salt or Sweet Lassi",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-178",
+          "name": "Strawberry Lassi",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-179",
+          "name": "Milk Shake",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-180",
+          "name": "Fresh Lemonade",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-181",
+          "name": "Soda",
+          "price": 3,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-182",
+          "name": "Tea / Coffee",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-183",
+          "name": "Poland Spring Water",
+          "price": 2,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-184",
+          "name": "Perrier Water",
+          "price": 2.5,
+          "description": "",
+          "tags": [
+            "Vegetarian",
+            "Vegan"
+          ],
+          "badge": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "category-23",
+      "name": "Desserts",
+      "description": "A sweet finish",
+      "items": [
+        {
+          "id": "menu-185",
+          "name": "Carrot Cake",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-186",
+          "name": "Cheese Cake",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-187",
+          "name": "Chocolate Cake",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-188",
+          "name": "Kheer (Rice Pudding)",
+          "price": 5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-189",
+          "name": "Ras Malai (2)",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-190",
+          "name": "Gulab Jamun (2)",
+          "price": 6,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-191",
+          "name": "Carrot Halwa",
+          "price": 4,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-192",
+          "name": "Pistachio Ice Cream",
+          "price": 3.5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        },
+        {
+          "id": "menu-193",
+          "name": "Vanilla Ice Cream",
+          "price": 4.5,
+          "description": "",
+          "tags": [
+            "Vegetarian"
+          ],
+          "badge": "",
+          "image": ""
+        }
       ]
     }
   ],
-  "chefsSpecials": [
-    {
-      "id": "menu-70",
-      "name": "Goan Shrimp Curry",
-      "reason": "Shrimp cooked Goan style with coconut milk and curry leaves — a coastal Indian favorite that our guests can't stop ordering.",
-      "badge": "House Special"
-    },
-    {
-      "id": "menu-69",
-      "name": "Lamb Roganjosh",
-      "reason": "Tender lamb simmered in a fragrant yogurt, cardamom and saffron curry sauce, authentic Kashmiri style.",
-      "badge": "Chef's Favorite"
-    },
-    {
-      "id": "menu-66",
-      "name": "Green Chili Chicken",
-      "reason": "A fiery favorite — hot green chilis, fresh peppers and garam masala create the perfect spicy kick.",
-      "badge": "Best Seller"
-    }
-  ]
+  "chefsSpecials": []
 }

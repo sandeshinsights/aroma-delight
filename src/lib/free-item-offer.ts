@@ -11,7 +11,7 @@
  *    nudges them; the discount stays $0 until they do.
  *
  * 2. **The free items' own prices do not count toward the threshold.** A $46
- *    curry plus a $5.99 lassi is $51.99 in the cart but only $46 of qualifying
+ *    curry plus a $5 lassi is $51 in the cart but only $46 of qualifying
  *    food, so it does not reach $50. The customer has to spend the threshold on
  *    *other* food.
  *
@@ -28,10 +28,17 @@
 import { getMenuData } from "./data";
 import type { MenuItem } from "./types";
 
-/** Base menu ids of the items this offer can comp. */
+/**
+ * Base menu ids of the items this offer can comp.
+ *
+ * NOTE (Aroma Delight): these point at the current menu.json ids for Mango Lassi
+ * and Vegetable Samosa (2). The whole mechanic — thresholds, which items, whether
+ * to run it at all — is a marketing decision the owner has not made yet
+ * (see NOTES-origin.md). Kept working with equivalent items for now.
+ */
 export const FREE_ITEM_IDS = {
-  mangoLassi: "menu-102",
-  vegetableSamosa: "menu-1",
+  mangoLassi: "menu-176",
+  vegetableSamosa: "menu-8",
 } as const;
 
 export interface OfferTier {

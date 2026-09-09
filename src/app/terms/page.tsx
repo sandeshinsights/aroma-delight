@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { getRestaurantData } from "@/lib/data";
+
+const R = getRestaurantData();
 
 /**
  * Terms & Conditions Page
@@ -9,8 +12,8 @@ import type { Metadata } from "next";
  */
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Cafe of India",
-  description: "Terms and conditions for Cafe of India restaurant website in Maynard, MA.",
+  title: `Terms & Conditions | ${R.name}`,
+  description: `Terms and conditions for ${R.name} restaurant website in ${R.address.city}, ${R.address.state}.`,
 };
 
 export default function TermsPage() {
@@ -25,14 +28,14 @@ export default function TermsPage() {
           <section>
             <h2 className="font-heading text-xl font-bold text-primary mb-3">1. Acceptance of Terms</h2>
             <p>
-              By accessing and using the Cafe of India website, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this website.
+              By accessing and using the {R.name} website, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this website.
             </p>
           </section>
 
           <section>
             <h2 className="font-heading text-xl font-bold text-primary mb-3">2. Website Use</h2>
             <p>
-              This website is provided for informational purposes about Cafe of India, including our menu, hours, location, catering services, and other restaurant-related information. You may use this website for lawful purposes only and in accordance with these terms.
+              This website is provided for informational purposes about {R.name}, including our menu, hours, location, catering services, and other restaurant-related information. You may use this website for lawful purposes only and in accordance with these terms.
             </p>
           </section>
 
@@ -46,21 +49,21 @@ export default function TermsPage() {
           <section>
             <h2 className="font-heading text-xl font-bold text-primary mb-3">4. Catering Services</h2>
             <p>
-              Catering inquiries submitted through our website are subject to availability and confirmation by Cafe of India. A minimum order of $150 applies to all catering orders. We require at least 48 hours advance notice for all catering orders. Final pricing, menu selection, and service details will be confirmed directly with our catering team.
+              Catering inquiries submitted through our website are subject to availability and confirmation by {R.name}. A minimum order of ${R.catering.minOrder} applies to all catering orders. We require at least 48 hours advance notice for all catering orders. Final pricing, menu selection, and service details will be confirmed directly with our catering team.
             </p>
           </section>
 
           <section>
             <h2 className="font-heading text-xl font-bold text-primary mb-3">5. Intellectual Property</h2>
             <p>
-              All content on this website, including but not limited to text, images, logos, and design elements, is the property of Cafe of India or its content suppliers and is protected by intellectual property laws. You may not reproduce, distribute, or use any content from this website without our prior written permission.
+              All content on this website, including but not limited to text, images, logos, and design elements, is the property of {R.name} or its content suppliers and is protected by intellectual property laws. You may not reproduce, distribute, or use any content from this website without our prior written permission.
             </p>
           </section>
 
           <section>
             <h2 className="font-heading text-xl font-bold text-primary mb-3">6. Limitation of Liability</h2>
             <p>
-              Cafe of India shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our website. Our website is provided &ldquo;as is&rdquo; without any warranties of any kind, either expressed or implied.
+              {R.name} shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our website. Our website is provided &ldquo;as is&rdquo; without any warranties of any kind, either expressed or implied.
             </p>
           </section>
 
@@ -77,10 +80,10 @@ export default function TermsPage() {
               If you have any questions about these Terms &amp; Conditions, please contact us at:
             </p>
             <div className="mt-3 text-text-light space-y-1">
-              <p><strong>Cafe of India</strong></p>
-              <p>155 Main Street, Maynard, MA 01754</p>
-              <p>Phone: (978) 897-9227</p>
-              <p>Email: info@cafeindiamaynard.com</p>
+              <p><strong>{R.name}</strong></p>
+              <p>{R.address.full}</p>
+              <p>Phone: {R.phoneDisplay}</p>
+              <p>Email: {R.email}</p>
             </div>
           </section>
 

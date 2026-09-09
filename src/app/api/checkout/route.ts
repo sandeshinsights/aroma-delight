@@ -12,7 +12,7 @@ import {
 } from "@/lib/ordering-hours";
 import { DELIVERY_CONFIG } from "@/lib/delivery";
 import { getUberQuote } from "@/lib/uber-direct";
-import { getProteinSurcharge } from "@/lib/pricing";
+import { getOptionSurcharge } from "@/lib/pricing";
 import { calculateFreeItemOffer } from "@/lib/free-item-offer";
 import { isOnlineOrderingEnabled } from "@/lib/data";
 import { applyDiscountToLineItems } from "@/lib/stripe-line-items";
@@ -166,13 +166,10 @@ export async function POST(req: NextRequest) {
           { status: 400 }
         );
       }
-      // Protein surcharge, from the same shared table the menu UI displays.
-      // Only the Dinner category offers a protein choice.
-      const surcharge =
-        menuItem.category.toLowerCase() === "dinner"
-          ? getProteinSurcharge(item.protein)
-          : 0;
-      const serverPrice = menuItem.price + surcharge;
+      // Option surcharge, from the same shared module the menu UI uses. Nothing
+      // on the current menu carries one, but the call stays so a future paid
+      // option can't be shown to the customer without also being charged.
+      const serverPrice = menuItem.price + getOptionSurcharge();
       sanitizedItems.push({
         id: item.id,
         name: item.name,

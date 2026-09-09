@@ -58,8 +58,8 @@ export default function TimeSlotPicker({
                 onClick={() => onDateChange(option.date)}
                 className={`shrink-0 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${
                   isSelected
-                    ? "bg-[#5C1A1B] text-white border-[#5C1A1B]"
-                    : "bg-white text-gray-700 border-gray-200 hover:border-[#5C1A1B]/30"
+                    ? "bg-primary text-cream border-primary"
+                    : "bg-white text-text-main border-ink/15 hover:border-primary/40"
                 }`}
               >
                 {option.label}
@@ -88,10 +88,10 @@ export default function TimeSlotPicker({
                   disabled={slot.disabled}
                   className={`py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                     selectedTime === slot.value
-                      ? "bg-[#C4973B] text-white border-[#C4973B]"
+                      ? "bg-secondary text-ink border-secondary"
                       : slot.disabled
-                        ? "bg-gray-50 text-gray-300 border-gray-100 cursor-not-allowed"
-                        : "bg-white text-gray-700 border-gray-200 hover:border-[#C4973B]/50"
+                        ? "bg-ink/5 text-ink/25 border-ink/10 cursor-not-allowed"
+                        : "bg-white text-text-main border-ink/15 hover:border-secondary/50"
                   }`}
                 >
                   {slot.label}

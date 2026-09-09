@@ -91,9 +91,9 @@ export default async function MenuItemPage({ params }: Props) {
           &larr; Full menu
         </Link>
 
-        <article className="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <article className="mt-4 bg-white rounded-xl border border-ink/10 shadow-sm overflow-hidden">
           {item.image && (
-            <div className="relative w-full aspect-[16/9] bg-gray-100">
+            <div className="relative w-full aspect-[16/9] bg-ink/5">
               <Image
                 src={item.image}
                 alt={item.name}
@@ -111,11 +111,11 @@ export default async function MenuItemPage({ params }: Props) {
                 <p className="text-xs uppercase tracking-wide text-secondary font-semibold">
                   {category.name}
                 </p>
-                <h1 className="font-heading text-3xl font-bold text-primary mt-1">
+                <h1 className="font-heading text-3xl text-ink mt-1">
                   {item.name}
                 </h1>
               </div>
-              <span className="text-2xl font-bold text-secondary whitespace-nowrap">
+              <span className="font-heading text-2xl text-primary whitespace-nowrap">
                 {formatPrice(item.price)}
               </span>
             </div>
@@ -139,7 +139,7 @@ export default async function MenuItemPage({ params }: Props) {
               </p>
             )}
 
-            <div className="border-t border-gray-100 pt-4">
+            <div className="border-t border-ink/10 pt-4">
               <MenuItemOrderForm item={item} categoryName={category.name} />
             </div>
 

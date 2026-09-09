@@ -10,17 +10,20 @@ interface SpecialDetail extends ChefsSpecial {
   photoUrl: string;
 }
 
-const specialPhotos: Record<string, string> = {
-  "menu-70": "/images/specials/butter-chicken.jpg",
-  "menu-69": "/images/specials/dal-makhani.jpg",
-  "menu-66": "/images/specials/chicken-biryani.jpg",
-};
+// Section is disabled in site-config until there is real "chef's specials"
+// content. When it comes back, map each special's id to its photo here.
+const specialPhotos: Record<string, string> = {};
+const FALLBACK_PHOTOS = [
+  "/images/placeholder/dish-1.svg",
+  "/images/placeholder/dish-2.svg",
+  "/images/placeholder/dish-3.svg",
+];
 
 export default function Specials() {
   const menuData = getMenuData();
 
   const specialDetails: SpecialDetail[] = menuData.chefsSpecials.map(
-    (special: ChefsSpecial) => {
+    (special: ChefsSpecial, index: number) => {
       const category: MenuCategory | undefined = menuData.categories.find(
         (cat: MenuCategory) =>
           cat.items.some((item: MenuItem) => item.id === special.id)
@@ -28,7 +31,8 @@ export default function Specials() {
       const menuItem: MenuItem | undefined = category?.items.find(
         (item: MenuItem) => item.id === special.id
       );
-      const photoUrl: string = specialPhotos[special.id] || "";
+      const photoUrl: string =
+        specialPhotos[special.id] || FALLBACK_PHOTOS[index % FALLBACK_PHOTOS.length];
 
       return {
         ...special,
@@ -40,7 +44,7 @@ export default function Specials() {
   );
 
   return (
-    <section id="specials" className="py-20 bg-primary text-white">
+    <section id="specials" className="relative overflow-hidden bg-ink py-20 text-cream md:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">

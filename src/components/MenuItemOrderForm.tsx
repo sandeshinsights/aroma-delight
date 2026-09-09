@@ -3,30 +3,17 @@
 import { useState } from "react";
 import { ShoppingCart, Plus, Minus, AlertCircle } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-// Shared with the checkout API so the displayed surcharge and the charged
-// surcharge can't drift apart.
-import { PROTEIN_OPTIONS } from "@/lib/pricing";
+// Shared with the checkout API so the options shown here match what the server
+// records and charges.
+import {
+  SPICE_LEVELS,
+  SHRIMP_OR_FISH,
+  categoryNeedsSpice,
+  categoryNeedsVariant,
+} from "@/lib/pricing";
 // Meta Pixel — browser-only funnel event. AddToCart has no server counterpart.
 import { trackMeta } from "@/lib/meta-pixel";
 import type { MenuItem } from "@/lib/types";
-
-/* ─── which categories need which choice ─── */
-
-export function isDinnerCategory(name: string): boolean {
-  return name.toLowerCase() === "dinner";
-}
-
-export function isSpicyCategory(name: string): boolean {
-  const spicy = [
-    "Dinner",
-    "Indo Chinese",
-    "Vegetarian",
-    "Rice Specialties",
-    "Tandoori Specials",
-    "Cafe Specials",
-  ];
-  return spicy.some((c) => c.toLowerCase() === name.toLowerCase());
-}
 
 type Props = {
   item: MenuItem;
@@ -44,9 +31,11 @@ type Props = {
  * Menu.tsx so the shareable per-dish page (`/menu/<slug>`) can add to the cart
  * directly instead of bouncing the customer back to the homepage menu.
  *
- * The cart-line id keeps the `${baseId}-${protein}-${spice}-${timestamp}` shape
- * that `/api/checkout` relies on to recover the server-side price — do not change
- * it here without changing `getMenuItemPrice` in the checkout route.
+ * The cart-line id keeps the `${baseId}-${choice}-${spice}-${timestamp}` shape
+ * that `/api/checkout` relies on to recover the server-side price — the first
+ * two dash-segments are the menu id. Don't change it here without changing
+ * `getMenuItemPrice` in the checkout route (and `baseMenuId` in CartContext,
+ * and `toBaseMenuId` in free-item-offer).
  */
 export default function MenuItemOrderForm({
   item,
@@ -55,18 +44,20 @@ export default function MenuItemOrderForm({
 }: Props) {
   const { addItem, openCart } = useCart();
 
-  const [selectedProtein, setSelectedProtein] = useState("");
+  // "choice" is the shrimp-or-fish pick; it rides in the cart line's `protein`
+  // field (kept for wire/back-compat) and prints as "(Shrimp)" on the slip.
+  const [selectedChoice, setSelectedChoice] = useState("");
   const [selectedSpice, setSelectedSpice] = useState("");
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  const needsStyle = isDinnerCategory(categoryName);
-  const needsSpice = isSpicyCategory(categoryName);
+  const needsChoice = categoryNeedsVariant(categoryName);
+  const needsSpice = categoryNeedsSpice(categoryName);
   const canAdd =
-    (!needsStyle || selectedProtein) && (!needsSpice || selectedSpice);
+    (!needsChoice || selectedChoice) && (!needsSpice || selectedSpice);
 
-  const missing = !selectedProtein && needsStyle
-    ? "Choose a style to add this to your order"
+  const missing = !selectedChoice && needsChoice
+    ? "Choose shrimp or fish to add this to your order"
     : !selectedSpice && needsSpice
       ? "Choose a spice level to add this to your order"
       : "";
@@ -74,17 +65,11 @@ export default function MenuItemOrderForm({
   function handleAdd() {
     if (!canAdd) return;
 
-    const proteinObj = needsStyle
-      ? PROTEIN_OPTIONS.find((p) => p.name === selectedProtein)
-      : null;
-    const surcharge = proteinObj ? proteinObj.surcharge : 0;
-
     addItem({
-      id: `${item.id}-${selectedProtein || "none"}-${selectedSpice || "none"}-${Date.now()}`,
-      name: selectedProtein ? `${selectedProtein} ${item.name}` : item.name,
-      price: item.price + surcharge,
-      protein: selectedProtein || undefined,
-      surcharge: surcharge || undefined,
+      id: `${item.id}-${selectedChoice || "none"}-${selectedSpice || "none"}-${Date.now()}`,
+      name: item.name,
+      price: item.price,
+      protein: selectedChoice || undefined,
       spiceLevel: selectedSpice || undefined,
       specialInstructions: specialInstructions.trim() || undefined,
       quantity,
@@ -95,15 +80,13 @@ export default function MenuItemOrderForm({
       content_name: item.name,
       content_type: "product",
       content_category: categoryName,
-      contents: [
-        { id: item.id, quantity, item_price: item.price + surcharge },
-      ],
+      contents: [{ id: item.id, quantity, item_price: item.price }],
       num_items: quantity,
-      value: (item.price + surcharge) * quantity,
+      value: item.price * quantity,
       currency: "USD",
     });
 
-    setSelectedProtein("");
+    setSelectedChoice("");
     setSelectedSpice("");
     setSpecialInstructions("");
     setQuantity(1);
@@ -112,60 +95,49 @@ export default function MenuItemOrderForm({
     else openCart();
   }
 
-  const unitPrice =
-    item.price +
-    (needsStyle
-      ? PROTEIN_OPTIONS.find((p) => p.name === selectedProtein)?.surcharge || 0
-      : 0);
-
   return (
     <div className="space-y-4">
-      {/* Choose Style (Dinner only) */}
-      {needsStyle && (
+      {/* Shrimp or Fish (only on the "Shrimp or Fish" dishes) */}
+      {needsChoice && (
         <div>
-          <p className="text-sm font-semibold text-[#5C1A1B] mb-2">
-            Choose Style <span className="text-red-500">*</span>
+          <p className="text-sm font-semibold text-ink mb-2">
+            Shrimp or Fish <span className="text-red-500">*</span>
           </p>
           <div className="grid grid-cols-2 gap-2">
-            {PROTEIN_OPTIONS.map((p) => (
+            {SHRIMP_OR_FISH.map((choice) => (
               <button
-                key={p.name}
+                key={choice}
                 type="button"
-                onClick={() => setSelectedProtein(p.name)}
+                onClick={() => setSelectedChoice(choice)}
                 className={`px-3 py-2 rounded-lg text-sm border transition-all ${
-                  selectedProtein === p.name
-                    ? "border-[#5C1A1B] bg-[#5C1A1B]/10 text-[#5C1A1B] font-medium"
-                    : "border-gray-200 text-gray-700 hover:border-gray-300"
+                  selectedChoice === choice
+                    ? "border-primary bg-primary/10 text-primary font-medium"
+                    : "border-ink/15 text-text-main hover:border-ink/30"
                 }`}
               >
-                {p.name}
-                {p.surcharge > 0 && (
-                  <span className="text-xs text-[#C4973B] ml-1">
-                    +${p.surcharge.toFixed(2)}
-                  </span>
-                )}
+                {choice}
               </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Spicy Level */}
+      {/* Spice Level */}
       {needsSpice && (
         <div>
-          <p className="text-sm font-semibold text-[#5C1A1B] mb-2">
-            Spicy Level <span className="text-red-500">*</span>
+          <p className="text-sm font-semibold text-ink mb-2">
+            Spice Level <span className="text-red-500">*</span>
           </p>
           <div className="flex gap-2">
-            {["Mild", "Medium", "Spicy"].map((level) => (
+            {SPICE_LEVELS.map((level) => (
               <button
                 key={level}
                 type="button"
                 onClick={() => setSelectedSpice(level)}
                 className={`flex-1 px-3 py-2 rounded-lg text-sm border transition-all ${
                   selectedSpice === level
-                    ? "border-[#5C1A1B] bg-[#5C1A1B]/10 text-[#5C1A1B] font-medium"
-                    : "border-gray-200 text-gray-700 hover:border-gray-300"
+                    ? "border-primary bg-primary/10 text-primary font-medium"
+                    : "border-ink/15 text-text-main hover:border-ink/30"
                 }`}
               >
                 {level}
@@ -185,7 +157,7 @@ export default function MenuItemOrderForm({
           onChange={(e) => setSpecialInstructions(e.target.value)}
           placeholder="Any allergies or preferences?"
           rows={2}
-          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#C4973B]/50 focus:border-[#C4973B]"
+          className="w-full px-3 py-2 border border-ink/15 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
         />
       </div>
 
@@ -196,7 +168,7 @@ export default function MenuItemOrderForm({
           <button
             type="button"
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-ink/20 hover:bg-ink/5"
           >
             <Minus className="w-3 h-3" />
           </button>
@@ -204,13 +176,13 @@ export default function MenuItemOrderForm({
           <button
             type="button"
             onClick={() => setQuantity((q) => q + 1)}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-ink/20 hover:bg-ink/5"
           >
             <Plus className="w-3 h-3" />
           </button>
-          {(selectedProtein || quantity > 1) && (
-            <span className="text-sm text-[#C4973B] font-medium ml-2">
-              Total: ${(unitPrice * quantity).toFixed(2)}
+          {quantity > 1 && (
+            <span className="text-sm text-primary font-semibold ml-2">
+              Total: ${(item.price * quantity).toFixed(2)}
             </span>
           )}
         </div>
@@ -219,7 +191,7 @@ export default function MenuItemOrderForm({
       {/* Add to cart */}
       <div className="space-y-2">
         {!canAdd && missing && (
-          <p className="flex items-center gap-2 text-sm font-semibold text-[#5C1A1B] bg-[#C4973B]/15 border border-[#C4973B]/40 rounded-lg px-3 py-2.5">
+          <p className="flex items-center gap-2 text-sm font-semibold text-ink bg-secondary/15 border border-secondary/40 rounded-lg px-3 py-2.5">
             <AlertCircle className="w-4 h-4 shrink-0" />
             {missing}
           </p>
@@ -228,10 +200,10 @@ export default function MenuItemOrderForm({
           type="button"
           onClick={handleAdd}
           disabled={!canAdd}
-          className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+          className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all ${
             canAdd
-              ? "bg-[#5C1A1B] text-white hover:bg-[#7A2526] shadow-sm"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              ? "bg-primary text-cream hover:bg-primary-light shadow-sm"
+              : "bg-ink/10 text-ink/40 cursor-not-allowed"
           }`}
         >
           <ShoppingCart className="w-4 h-4" />

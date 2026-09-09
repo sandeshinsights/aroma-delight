@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { getRestaurantData } from "@/lib/data";
+
+const R = getRestaurantData();
 
 /**
  * Privacy Policy Page
@@ -10,8 +13,8 @@ import type { Metadata } from "next";
  */
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Cafe of India",
-  description: "Privacy policy for Cafe of India restaurant website in Maynard, MA.",
+  title: `Privacy Policy | ${R.name}`,
+  description: `Privacy policy for ${R.name} restaurant website in ${R.address.city}, ${R.address.state}.`,
 };
 
 export default function PrivacyPage() {
@@ -86,10 +89,10 @@ export default function PrivacyPage() {
               If you have any questions about this Privacy Policy, please contact us at:
             </p>
             <div className="mt-3 text-text-light space-y-1">
-              <p><strong>Cafe of India</strong></p>
-              <p>155 Main Street, Maynard, MA 01754</p>
-              <p>Phone: (978) 897-9227</p>
-              <p>Email: info@cafeindiamaynard.com</p>
+              <p><strong>{R.name}</strong></p>
+              <p>{R.address.full}</p>
+              <p>Phone: {R.phoneDisplay}</p>
+              <p>Email: {R.email}</p>
             </div>
           </section>
 

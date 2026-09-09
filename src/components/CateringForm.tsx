@@ -7,7 +7,7 @@ import { getRestaurantData } from "@/lib/data";
 import { trackMeta, newMetaEventId, getMetaBrowserIds } from "@/lib/meta-pixel";
 
 export default function CateringForm() {
-  const { catering } = getRestaurantData();
+  const { catering, phone, phoneDisplay } = getRestaurantData();
   const eventTypes = catering.eventTypes || [];
 
   const [form, setForm] = useState({
@@ -101,7 +101,7 @@ export default function CateringForm() {
         </p>
         <button
           onClick={() => setStatus("idle")}
-          className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors"
+          className="px-6 py-3 bg-primary text-cream rounded-lg hover:bg-primary-light transition-colors"
         >
           Submit Another Inquiry
         </button>
@@ -138,7 +138,7 @@ export default function CateringForm() {
             required
             minLength={2}
             placeholder="John Smith"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-gray-400"
+            className="w-full px-4 py-3 rounded-lg border border-ink/15 bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-text-light/60"
           />
         </div>
 
@@ -155,7 +155,7 @@ export default function CateringForm() {
             onChange={handleChange}
             required
             placeholder="john@example.com"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-gray-400"
+            className="w-full px-4 py-3 rounded-lg border border-ink/15 bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-text-light/60"
           />
         </div>
 
@@ -171,8 +171,8 @@ export default function CateringForm() {
             value={form.phone}
             onChange={handleChange}
             required
-            placeholder="(978) 555-0123"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-gray-400"
+            placeholder="(781) 555-0123"
+            className="w-full px-4 py-3 rounded-lg border border-ink/15 bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-text-light/60"
           />
         </div>
 
@@ -187,7 +187,7 @@ export default function CateringForm() {
             value={form.eventType}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main bg-white"
+            className="w-full px-4 py-3 rounded-lg border border-ink/15 bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main bg-white"
           >
             <option value="">Select event type</option>
             {eventTypes.map((type) => (
@@ -213,7 +213,7 @@ export default function CateringForm() {
             min={10}
             max={500}
             placeholder="50"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-gray-400"
+            className="w-full px-4 py-3 rounded-lg border border-ink/15 bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-text-light/60"
           />
           <p className="text-xs text-text-light mt-1">Minimum 10 guests</p>
         </div>
@@ -231,7 +231,7 @@ export default function CateringForm() {
             onChange={handleChange}
             required
             min={today}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main"
+            className="w-full px-4 py-3 rounded-lg border border-ink/15 bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main"
           />
         </div>
       </div>
@@ -249,7 +249,7 @@ export default function CateringForm() {
           rows={4}
           maxLength={1000}
           placeholder="Tell us about your event, dietary requirements, preferred dishes, etc."
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-gray-400 resize-y"
+          className="w-full px-4 py-3 rounded-lg border border-ink/15 bg-white focus:border-secondary focus:ring-2 focus:ring-secondary/30 outline-none transition-all text-text-main placeholder:text-text-light/60 resize-y"
         />
         <p className="text-xs text-text-light mt-1 text-right">
           {form.message.length}/1000
@@ -260,7 +260,7 @@ export default function CateringForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-light transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-primary text-cream font-semibold rounded-lg hover:bg-primary-light transition-all disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {status === "loading" ? (
           <>
@@ -277,8 +277,8 @@ export default function CateringForm() {
 
       <p className="text-xs text-text-light text-center">
         We&apos;ll respond within 24 hours. Call us at{" "}
-        <a href="tel:978-897-9227" className="text-secondary font-medium hover:underline">
-          (978) 897-9227
+        <a href={`tel:${phone}`} className="text-secondary font-medium hover:underline">
+          {phoneDisplay}
         </a>{" "}
         for urgent inquiries.
       </p>

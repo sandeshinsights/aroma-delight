@@ -1,7 +1,19 @@
 import { Resend } from "resend";
 import { formatScheduledDisplay } from "@/lib/ordering-hours";
+import { getRestaurantData } from "@/lib/data";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+/**
+ * Restaurant identity for the templates below — single source is
+ * src/data/restaurant.json, so the kitchen slip, the customer receipt and the
+ * ops alerts all rename together when the JSON changes.
+ */
+const R = getRestaurantData();
+const BRAND = R.name;
+const BRAND_ADDRESS = R.address.full;
+const BRAND_PHONE = R.phoneDisplay;
+const BRAND_PHONE_TEL = `+1${R.phone.replace(/\D/g, "")}`;
 
 /**
  * HTML-escape a user-supplied value before interpolating it into an email
@@ -63,10 +75,10 @@ interface CateringEmailData {
 
 export async function sendCateringNotification(data: CateringEmailData) {
   const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-  const restaurantEmail = process.env.RESTAURANT_EMAIL || "cafeofindia2@gmail.com";
+  const restaurantEmail = process.env.RESTAURANT_EMAIL || R.email;
 
   const result = await sendOrThrow("catering", {
-    from: `Cafe of India Website <${fromEmail}>`,
+    from: `${BRAND} Website <${fromEmail}>`,
     to: [restaurantEmail],
     replyTo: data.email,
     subject: `New Catering Inquiry from ${data.name}`,
@@ -117,8 +129,7 @@ interface OrderEmailData {
 
 export async function sendOrderNotification(data: OrderEmailData) {
   const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-  const restaurantEmail =
-    process.env.RESTAURANT_EMAIL || "cafeofindia2@gmail.com";
+  const restaurantEmail = process.env.RESTAURANT_EMAIL || R.email;
 
   const items = Array.isArray(data.items) ? data.items : [];
   const itemsHtml = items
@@ -183,7 +194,7 @@ export async function sendOrderNotification(data: OrderEmailData) {
     : "";
 
   await sendOrThrow("restaurant-notification", {
-    from: `Cafe of India Website <${fromEmail}>`,
+    from: `${BRAND} Website <${fromEmail}>`,
     to: [restaurantEmail],
     subject: `${data.scheduledFor ? "[SCHEDULED] " : ""}${data.isDelivery ? "[DELIVERY] " : ""}New Order #${data.orderId.slice(0, 8)} from ${data.name} — $${data.total.toFixed(2)}`,
     html: `
@@ -235,7 +246,7 @@ export async function sendOrderNotification(data: OrderEmailData) {
 
           <div style="margin-top: 12px; text-align: right;">
             <p style="margin: 2px 0;">Subtotal: $${data.subtotal.toFixed(2)}</p>
-            <p style="margin: 2px 0;">Tax (7%): $${data.tax.toFixed(2)}</p>
+            <p style="margin: 2px 0;">Tax: $${data.tax.toFixed(2)}</p>
             ${tipHtml}
             ${deliveryFeeHtml}
             <p style="font-size: 18px; font-weight: bold; color: #5C1A1B; margin: 8px 0;">
@@ -327,9 +338,9 @@ export async function sendCustomerConfirmation(data: OrderEmailData) {
         <div style="background: #fffbeb; padding: 16px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f59e0b;">
           <h3 style="color: #d97706; margin-top: 0;">Scheduled Pickup</h3>
           <p style="margin: 4px 0; font-size: 16px; font-weight: 600;">${esc(scheduledDisplay)}</p>
-          <p style="margin: 4px 0;"><strong>Location:</strong> Cafe of India</p>
-          <p style="margin: 4px 0;"><strong>Address:</strong> 155 Main St, Maynard, MA 01754</p>
-          <p style="margin: 4px 0;"><strong>Phone:</strong> (978) 897-9227</p>
+          <p style="margin: 4px 0;"><strong>Location:</strong> ${BRAND}</p>
+          <p style="margin: 4px 0;"><strong>Address:</strong> ${BRAND_ADDRESS}</p>
+          <p style="margin: 4px 0;"><strong>Phone:</strong> ${BRAND_PHONE}</p>
           <p style="margin: 4px 0;"><strong>Order ID:</strong> ${data.orderId.slice(0, 8)}</p>
           <p style="margin: 8px 0 0; color: #92400e; font-style: italic;">Please arrive around your scheduled time. Call us if you need to make changes.</p>
         </div>
@@ -337,9 +348,9 @@ export async function sendCustomerConfirmation(data: OrderEmailData) {
       : `
         <div style="background: #FBF8F1; padding: 16px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #C4973B;">
           <h3 style="color: #5C1A1B; margin-top: 0;">Pickup Information</h3>
-          <p style="margin: 4px 0;"><strong>Location:</strong> Cafe of India</p>
-          <p style="margin: 4px 0;"><strong>Address:</strong> 155 Main St, Maynard, MA 01754</p>
-          <p style="margin: 4px 0;"><strong>Phone:</strong> (978) 897-9227</p>
+          <p style="margin: 4px 0;"><strong>Location:</strong> ${BRAND}</p>
+          <p style="margin: 4px 0;"><strong>Address:</strong> ${BRAND_ADDRESS}</p>
+          <p style="margin: 4px 0;"><strong>Phone:</strong> ${BRAND_PHONE}</p>
           <p style="margin: 4px 0;"><strong>Order ID:</strong> ${data.orderId.slice(0, 8)}</p>
         </div>
       `;
@@ -354,9 +365,9 @@ export async function sendCustomerConfirmation(data: OrderEmailData) {
     : "";
 
   await sendOrThrow("customer-confirmation", {
-    from: `Cafe of India <${fromEmail}>`,
+    from: `${BRAND} <${fromEmail}>`,
     to: [data.email],
-    subject: `${data.scheduledFor ? "[Scheduled] " : ""}${data.isDelivery ? "[Delivery] " : ""}Order Confirmed! Your Cafe of India order has been received`,
+    subject: `${data.scheduledFor ? "[Scheduled] " : ""}${data.isDelivery ? "[Delivery] " : ""}Order Confirmed! Your ${BRAND} order has been received`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
         <div style="background: #5C1A1B; padding: 24px; border-radius: 8px 8px 0 0; text-align: center;">
@@ -382,7 +393,7 @@ export async function sendCustomerConfirmation(data: OrderEmailData) {
 
             <div style="margin-top: 16px; text-align: right; padding-top: 12px; border-top: 2px solid #5C1A1B;">
               <p style="margin: 4px 0; color: #666;">Subtotal: $${data.subtotal.toFixed(2)}</p>
-              <p style="margin: 4px 0; color: #666;">Tax (7%): $${data.tax.toFixed(2)}</p>
+              <p style="margin: 4px 0; color: #666;">Tax: $${data.tax.toFixed(2)}</p>
               ${tipHtml}
               ${deliveryFeeHtml}
               <p style="font-size: 20px; font-weight: bold; color: #5C1A1B; margin: 8px 0;">
@@ -394,12 +405,12 @@ export async function sendCustomerConfirmation(data: OrderEmailData) {
           ${fulfillmentInfo}
 
           <p style="color: #666; font-size: 14px;">
-            Questions about your order? Call us at <a href="tel:+19788979227" style="color: #5C1A1B;">(978) 897-9227</a>.
+            Questions about your order? Call us at <a href="tel:${BRAND_PHONE_TEL}" style="color: #5C1A1B;">${BRAND_PHONE}</a>.
           </p>
 
           <div style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;">
             <p style="color: #999; font-size: 12px; margin: 0;">
-              Cafe of India &middot; 155 Main St, Maynard, MA 01754
+              ${BRAND} &middot; ${BRAND_ADDRESS}
             </p>
           </div>
         </div>
@@ -516,13 +527,13 @@ export async function sendOrderToPrinter(
     : "";
 
   await sendOrThrow("printer", {
-    from: `Cafe of India <${fromEmail}>`,
+    from: `${BRAND} <${fromEmail}>`,
     to: [eprintEmail],
     subject: `ORDER #${orderNum}`,
     html: `
         <div style="font-family: Arial, sans-serif; max-width: 400px; margin: 0 auto; padding: 20px;">
-          <h1 style="text-align: center; margin: 0 0 4px; font-size: 28px; color: #5C1A1B;">CAFE OF INDIA</h1>
-          <p style="text-align: center; margin: 0 0 16px; font-size: 14px; color: #666;">155 Main St, Maynard, MA 01754</p>
+          <h1 style="text-align: center; margin: 0 0 4px; font-size: 28px; color: #5C1A1B;">${BRAND.toUpperCase()}</h1>
+          <p style="text-align: center; margin: 0 0 16px; font-size: 14px; color: #666;">${BRAND_ADDRESS}</p>
 
           <div style="border-top: 3px solid #5C1A1B; border-bottom: 3px solid #5C1A1B; padding: 10px 0; margin: 12px 0; text-align: center;">
             <p style="margin: 0; font-size: 13px; color: #666;">Order #</p>
@@ -550,7 +561,7 @@ export async function sendOrderToPrinter(
           <div style="margin: 16px 0; padding: 12px; background: #f9f9f9; border-radius: 6px;">
             <p style="margin: 4px 0; font-size: 16px; text-align: right;">Subtotal: <strong>$${data.subtotal.toFixed(2)}</strong></p>
             ${discountHtml}
-            <p style="margin: 4px 0; font-size: 16px; text-align: right;">Tax (7%): <strong>$${data.tax.toFixed(2)}</strong></p>
+            <p style="margin: 4px 0; font-size: 16px; text-align: right;">Tax: <strong>$${data.tax.toFixed(2)}</strong></p>
             ${deliveryFeeHtml}
             <div style="border-top: 2px solid #5C1A1B; margin-top: 8px; padding-top: 8px;">
               <p style="margin: 0; font-size: 22px; font-weight: 700; text-align: right; color: #5C1A1B;">TOTAL: $${data.total.toFixed(2)}</p>
@@ -587,7 +598,7 @@ export async function sendFulfillmentAlert(reports: StuckOrderReport[]) {
   if (reports.length === 0) return;
 
   const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-  const restaurantEmail = process.env.RESTAURANT_EMAIL || "cafeofindia2@gmail.com";
+  const restaurantEmail = process.env.RESTAURANT_EMAIL || R.email;
 
   const rowsHtml = reports
     .map(
@@ -611,7 +622,7 @@ export async function sendFulfillmentAlert(reports: StuckOrderReport[]) {
   await sendOrThrow(
     "fulfillment-alert",
     {
-      from: `Cafe of India Website <${fromEmail}>`,
+      from: `${BRAND} Website <${fromEmail}>`,
       to: [restaurantEmail],
       subject: `[ACTION NEEDED] ${reports.length} paid order${reports.length === 1 ? "" : "s"} need attention`,
       html: `

@@ -14,6 +14,10 @@
  * src/lib/order-fulfillment.ts, after Stripe confirms payment.
  */
 
+import { getRestaurantData } from "@/lib/data";
+
+const R = getRestaurantData();
+
 export const DELIVERY_CONFIG = {
   enabled: true,
 
@@ -27,9 +31,9 @@ export const DELIVERY_CONFIG = {
 
   // Delivery area (used when Google Places is integrated)
   maxRadiusMiles: 10,
-  restaurantAddress: "155 Main Street, Maynard, MA 01754",
-  restaurantLat: 42.4331,
-  restaurantLng: -71.4505,
+  restaurantAddress: R.address.full,
+  restaurantLat: R.geo.lat,
+  restaurantLng: R.geo.lng,
 };
 
 export interface DeliveryFeeResult {
@@ -94,7 +98,7 @@ export async function getDeliveryQuote(
       fee: 0,
       customerPays: 0,
       restaurantPays: 0,
-      error: "Delivery service temporarily unavailable. Please try again or call us at (978) 897-9227.",
+      error: `Delivery service temporarily unavailable. Please try again or call us at ${R.phoneDisplay}.`,
     };
   }
 }

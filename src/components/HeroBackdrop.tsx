@@ -45,7 +45,7 @@ export default function HeroBackdrop({ images }: { images: HeroImage[] }) {
   }, [images.length]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#2D2D2D]">
+    <div className="absolute inset-0 overflow-hidden bg-ink">
       {images.map((image, index) => (
         <div
           key={image.src}
@@ -71,10 +71,10 @@ export default function HeroBackdrop({ images }: { images: HeroImage[] }) {
 
       {/* Readability scrim. Deeper top and bottom so the header and the scroll
           cue keep contrast over a bright photo. */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
-      {/* Warm tint, so the photography sits in the same family as the brand
-          maroon and gold instead of reading as a cold stock image. */}
-      <div className="absolute inset-0 bg-[#5C1A1B]/10 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/35 to-ink/80" />
+      {/* Cardamom tint, so the photography sits in the brand's green/amber family
+          rather than reading as a cold stock image. */}
+      <div className="absolute inset-0 bg-primary/25 mix-blend-multiply" />
     </div>
   );
 }

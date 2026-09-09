@@ -9,11 +9,15 @@
  *  - isValidScheduledTime()  → server-side validation (timezone-safe)
  */
 
+// Aroma Delight is open 11:00 AM - 10:00 PM every day. Online ordering closes
+// 30 min before the kitchen does so the last order can still be made.
+// NOTE: these are hardcoded here, not read from restaurant.json's orderingConfig
+// block — that block is currently unused. Keep the two in sync by hand.
 export const ORDERING_CONFIG = {
-  openTime: "11:30",
-  closeTime: "21:00",
-  orderingStarts: "11:15",
-  orderingEnds: "20:45",
+  openTime: "11:00",
+  closeTime: "21:30",
+  orderingStarts: "11:00",
+  orderingEnds: "21:30",
   slotIntervalMinutes: 15,
   minLeadTimeMinutes: 30,
   maxScheduleDays: 7,
@@ -169,7 +173,7 @@ export function formatScheduledPickup(dateStr: string, timeStr: string): string 
  *
  * DST note: the offset is derived at the target instant, so EDT/EST both work.
  * The ambiguous 1-2 AM transition hours can't occur — ordering hours are
- * 11:30-21:00.
+ * 11:00-21:30.
  */
 export function scheduledTimeToUtcIso(dateStr: string, timeStr: string): string {
   const [y, mo, d] = dateStr.split("-").map(Number);

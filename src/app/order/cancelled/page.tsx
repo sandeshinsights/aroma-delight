@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { XCircle, Home, ShoppingBag } from "lucide-react";
+import { getRestaurantData } from "@/lib/data";
+
+const R = getRestaurantData();
 
 export default function OrderCancelled() {
   return (
@@ -33,10 +36,10 @@ export default function OrderCancelled() {
             Return to Menu
           </Link>
           <a
-            href="tel:978-897-9227"
+            href={`tel:${R.phone}`}
             className="block text-sm text-text-light hover:text-primary transition-colors"
           >
-            Prefer to order by phone? Call (978) 897-9227
+            Prefer to order by phone? Call {R.phoneDisplay}
           </a>
         </div>
       </div>

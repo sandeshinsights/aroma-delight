@@ -1,189 +1,112 @@
-"use client";
-
-import { useState } from "react";
-import { PartyPopper, Users, Building2, Cake, GraduationCap, CalendarHeart, Phone, DollarSign, ChevronDown } from "lucide-react";
+import {
+  PartyPopper,
+  Users,
+  Building2,
+  Cake,
+  CalendarHeart,
+  Phone,
+  DollarSign,
+  Clock3,
+} from "lucide-react";
 import { getRestaurantData } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import CateringForm from "@/components/CateringForm";
 import Image from "next/image";
 
 /**
- * Catering Section
- * 
- * WHAT IT DOES:
- * - Displays catering services overview
- * - Shows event types we cater to
- * - Shows catering menu with small/large tray pricing (accordion style)
- * - Minimum order info and advance notice
- * - Catering inquiry form
- * 
- * VISUAL:
- * - Cream background
- * - Event type icons grid
- * - Catering menu organized by category (click to expand)
+ * Catering Section — inquiry-only.
+ *
+ * Aroma Delight has no published catering price list, so this is an overview +
+ * event types + a request-a-quote form. If a tray price list arrives later, add
+ * it to restaurant.json `catering.menu` and render it back here.
  */
 
 const eventIcons: Record<string, React.ReactNode> = {
-  "Weddings & Receptions": <PartyPopper className="w-6 h-6" />,
-  "Corporate Events & Meetings": <Building2 className="w-6 h-6" />,
-  "Birthday Parties": <Cake className="w-6 h-6" />,
-  "Anniversaries": <CalendarHeart className="w-6 h-6" />,
-  "Holiday Gatherings": <CalendarHeart className="w-6 h-6" />,
-  "Community Events": <Users className="w-6 h-6" />,
+  "Weddings & Receptions": <PartyPopper className="h-5 w-5" />,
+  "Corporate Events & Meetings": <Building2 className="h-5 w-5" />,
+  "Birthday Parties": <Cake className="h-5 w-5" />,
+  "Anniversaries": <CalendarHeart className="h-5 w-5" />,
+  "Holiday Gatherings": <CalendarHeart className="h-5 w-5" />,
+  "Community Events": <Users className="h-5 w-5" />,
 };
 
 export default function Catering() {
   const { catering, phone } = getRestaurantData();
-  const [openCategory, setOpenCategory] = useState<string | null>(null);
-
-  // Group catering menu items by category
-  const categories = catering.menu.reduce<Record<string, typeof catering.menu>>(
-    (acc, item) => {
-      if (!acc[item.category]) acc[item.category] = [];
-      acc[item.category].push(item);
-      return acc;
-    },
-    {}
-  );
-
-  function toggleCategory(category: string) {
-    setOpenCategory((prev) => (prev === category ? null : category));
-  }
 
   return (
-    <section id="catering" className="py-20 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6">
+    <section id="catering" className="scroll-mt-20 bg-white py-20 md:py-28">
+      <div className="mx-auto max-w-6xl space-y-14 px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow mb-3">Catering</p>
+          <h2 className="font-heading text-4xl text-ink sm:text-5xl">
             {catering.headline}
           </h2>
-          <p className="text-text-light text-lg leading-relaxed">
+          <p className="mt-5 text-lg leading-relaxed text-text-light">
             {catering.description}
           </p>
         </div>
 
-        {/* Catering Banner */}
+        {/* Banner */}
         {catering.banner && (
-          <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden shadow-lg">
+          <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl">
             <Image
               src={catering.banner}
               alt={catering.headline || "Catering"}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 80vw"
+              sizes="(max-width: 768px) 100vw, 1100px"
               loading="lazy"
             />
           </div>
         )}
 
-        {/* Event Types Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {/* Event types */}
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {catering.eventTypes.map((event) => (
             <div
               key={event}
-              className="bg-white rounded-xl p-5 text-center hover:shadow-md transition-shadow duration-200 border border-gray-100"
+              className="rounded-lg border border-ink/10 bg-cream p-5 text-center"
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-3">
-                {eventIcons[event] || <PartyPopper className="w-6 h-6" />}
+              <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                {eventIcons[event] || <PartyPopper className="h-5 w-5" />}
               </div>
               <p className="text-sm font-medium text-text-main">{event}</p>
             </div>
           ))}
         </div>
 
-        {/* Catering Menu — Accordion */}
-        <div>
-          <h3 className="font-heading text-2xl font-bold text-primary text-center mb-8">
-            Catering Menu
-          </h3>
-          <div className="space-y-3">
-            {Object.entries(categories).map(([category, items]) => {
-              const isOpen = openCategory === category;
-              return (
-                <div
-                  key={category}
-                  className="bg-white rounded-xl border border-gray-100 overflow-hidden"
-                >
-                  {/* Category Header — clickable */}
-                  <button
-                    type="button"
-                    onClick={() => toggleCategory(category)}
-                    className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <h4 className="font-heading text-lg font-bold text-primary">
-                        {category}
-                      </h4>
-                      <span className="text-xs text-text-light bg-gray-100 rounded-full px-2.5 py-0.5">
-                        {items.length} {items.length === 1 ? "item" : "items"}
-                      </span>
-                    </div>
-                    <ChevronDown
-                      className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  {/* Category Items — expandable */}
-                  {isOpen && (
-                    <div className="px-5 pb-5 border-t border-gray-100 pt-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {items.map((item) => (
-                          <div
-                            key={item.id}
-                            className="bg-cream/60 rounded-lg p-4 border border-gray-100 hover:shadow-sm transition-shadow"
-                          >
-                            <h5 className="font-semibold text-text-main mb-2">{item.name}</h5>
-                            <div className="space-y-1 text-sm">
-                              <div className="flex justify-between text-text-light">
-                                <span>Small Tray</span>
-                                <span className="font-semibold text-primary">{formatPrice(item.priceSmall)}</span>
-                              </div>
-                              <p className="text-text-light text-xs">{item.servesSmall}</p>
-                              <div className="flex justify-between text-text-light pt-1 border-t border-gray-50">
-                                <span>Large Tray</span>
-                                <span className="font-semibold text-primary">{formatPrice(item.priceLarge)}</span>
-                              </div>
-                              <p className="text-text-light text-xs">{item.servesLarge}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+        {/* Terms */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="flex items-center gap-4 rounded-lg border border-ink/10 bg-cream p-6">
+            <DollarSign className="h-7 w-7 shrink-0 text-secondary" />
+            <div>
+              <h4 className="font-heading text-lg text-ink">Minimum order</h4>
+              <p className="text-text-light">{formatPrice(catering.minOrder)}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 rounded-lg border border-ink/10 bg-cream p-6">
+            <Clock3 className="h-7 w-7 shrink-0 text-secondary" />
+            <div>
+              <h4 className="font-heading text-lg text-ink">Advance notice</h4>
+              <p className="text-text-light">{catering.advanceNotice}</p>
+            </div>
           </div>
         </div>
 
-        {/* Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="bg-white rounded-xl p-6 border border-gray-100 text-center">
-            <DollarSign className="w-8 h-8 text-secondary mx-auto mb-3" />
-            <h4 className="font-heading text-lg font-bold text-primary mb-1">Minimum Order</h4>
-            <p className="text-text-light">{formatPrice(catering.minOrder)}</p>
-          </div>
-          <div className="bg-white rounded-xl p-6 border border-gray-100 text-center">
-            <CalendarHeart className="w-8 h-8 text-secondary mx-auto mb-3" />
-            <h4 className="font-heading text-lg font-bold text-primary mb-1">Advance Notice</h4>
-            <p className="text-text-light">{catering.advanceNotice}</p>
-          </div>
-        </div>
-
-        {/* Catering Inquiry Form */}
-        <div className="bg-white rounded-2xl p-6 md:p-10 shadow-lg border border-gray-100">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl font-heading font-bold text-primary text-center mb-2">
-              Request a Quote
-            </h2>
-            <p className="text-text-light text-center mb-8">
-              Fill out the form below and we&apos;ll get back to you with a custom catering proposal.
+        {/* Form */}
+        <div className="rounded-xl border border-ink/10 bg-cream p-6 md:p-10">
+          <div className="mx-auto max-w-2xl">
+            <h3 className="text-center font-heading text-2xl text-ink">
+              Request a quote
+            </h3>
+            <p className="mt-2 text-center text-text-light">
+              Tell us about your event and we&apos;ll follow up with a custom
+              proposal.
             </p>
-            <CateringForm />
+            <div className="mt-8">
+              <CateringForm />
+            </div>
           </div>
         </div>
 
@@ -191,13 +114,12 @@ export default function Catering() {
         <div className="text-center">
           <a
             href={`tel:${phone}`}
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary-light text-white px-8 py-4 rounded-full text-lg font-semibold transition-colors duration-200"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-cream transition-colors hover:bg-primary-light"
           >
-            <Phone className="w-5 h-5" />
-            Call to Discuss Your Event
+            <Phone className="h-5 w-5" />
+            Call to discuss your event
           </a>
         </div>
-
       </div>
     </section>
   );
