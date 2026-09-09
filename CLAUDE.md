@@ -2,6 +2,58 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+---
+
+## ⚠️ Migration status — this repo is a fork
+
+This codebase was forked from **Cafe of India** (Maynard, MA) on 2026-09-09 to build the
+online-ordering site for **Aroma Delights**. The ordering / payment / fulfillment / delivery
+engine (API routes, `src/lib`, Prisma schema, crons) is being kept as-is — it is
+restaurant-agnostic and carries a long tail of already-fixed production bugs. Everything
+below the "Big picture" heading still describes that engine accurately.
+
+**What still needs doing before launch** (see `NOTES-origin.md` for the full punch list):
+
+1. **Content swap** — `src/data/{menu,restaurant,site-config,seo}.json` still hold Cafe of
+   India's menu, hours, address, testimonials, FAQ, theme palette and SEO.
+2. **Hardcoded identity in code** — restaurant name / address / email are hardwired in
+   several `.ts`/`.tsx` files (not just JSON): `src/lib/email.ts`, `src/lib/uber-direct.ts`,
+   `src/lib/delivery.ts`, `src/app/api/delivery/quote/route.ts`, `src/context/CartContext.tsx`
+   (`STORAGE_KEY`), `src/components/sections/{Hero,Menu,Contact}.tsx`,
+   `src/components/CartDrawer.tsx`, `src/components/layout/Footer.tsx`,
+   `src/app/{privacy,terms}/page.tsx`. Prefer moving these to `restaurant.json` / env over
+   find-and-replace.
+3. **UI/UX redesign** — the 9 homepage sections in `src/components/sections/` and the theme
+   (`site-config.json` palette + `globals.css` `@theme`) get a fresh design. Money engine
+   untouched.
+4. **New third-party accounts** — Stripe, Supabase, Resend + verified domain, HP ePrint,
+   Uber Direct, Vercel, domain. All env vars are new.
+5. **New analytics/ads integrations** — see "Google Ads + Google Business Profile" below.
+
+## Google Ads + Google Business Profile (new for Aroma Delights)
+
+The Cafe of India build has **Meta Pixel + Conversions API** (`src/lib/meta-pixel.ts`,
+`src/lib/meta-capi.ts`, `src/components/MetaPixel.tsx`) and **GA4 gated behind the cookie
+banner** (`CookieConsent.tsx` gates gtag). Aroma Delights additionally needs:
+
+- **Google Ads conversion tracking** — mirror the Meta dual-send design. Browser: `gtag`
+  `conversion` events for `begin_checkout` / `purchase` / `generate_lead`. Server:
+  **Enhanced Conversions for Leads / web** via the Google Ads API offline-conversion import
+  or the gtag enhanced-conversions payload (hashed email/phone, same SHA-256 normalization
+  as `meta-capi.ts` — lowercase+trim, phone digits+country code). Reuse the shared
+  `event_id` / `order.id` idempotency pattern so Google and Meta don't disagree.
+  New env: `NEXT_PUBLIC_GOOGLE_ADS_ID` (AW-XXXXXXX), per-conversion labels, and
+  (if doing server-side) `GOOGLE_ADS_*` API credentials + developer token.
+- **Consent Mode v2** — Google Ads/GA4 in the EEA needs `gtag('consent', ...)`. Wire it to
+  the same `CookieConsent` banner. Decide (as the Meta Pixel decision was made) whether ads
+  tags fire pre-consent for US-only traffic; document it in the privacy policy either way.
+- **Google Business Profile** — off-site listing, but the site supports it via:
+  `LocalBusiness` / `Restaurant` JSON-LD structured data (name, address, geo, hours, phone,
+  `sameAs`, `priceRange`, `servesCuisine`, `menu` URL) in `layout.tsx` or a dedicated
+  component; exact **NAP** (name/address/phone) consistency between the site, the JSON-LD,
+  and the GBP listing; `hasMenu` pointing at the menu; and a reviews block whose schema
+  matches. Add `AggregateRating` only if backed by real review data.
+
 @AGENTS.md
 
 > The line above pulls in `AGENTS.md`: **this is Next.js 16 + React 19**, which has breaking changes vs. older versions. Read the relevant guide under `node_modules/next/dist/docs/` before writing framework code.
