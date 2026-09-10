@@ -25,6 +25,15 @@ export async function POST(request: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
+
+    // This Stripe account is shared with another restaurant's site, and Stripe
+    // fans every checkout.session.* event out to every endpoint on the account.
+    // Sessions we created carry metadata.site; anything else belongs to the
+    // other site — ack it so Stripe stops retrying, but do nothing.
+    if (session.metadata?.site !== "aroma-delights") {
+      return NextResponse.json({ received: true, ignored: "different site" });
+    }
+
     console.log(`[stripe/webhook] checkout.session.completed — session ${session.id}`);
 
     const result = await fulfillOrder(session.id);

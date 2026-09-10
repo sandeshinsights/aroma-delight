@@ -416,6 +416,11 @@ export async function POST(req: NextRequest) {
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/order/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/order/cancelled`,
       metadata: {
+        // This Stripe account is shared with another restaurant's site. Both
+        // sites' webhook endpoints receive every checkout.session.* event for
+        // the account, so the webhook filters on this tag and ignores sessions
+        // that aren't ours.
+        site: "aroma-delights",
         customer_name: name,
         customer_email: email,
         customer_phone: phone,
