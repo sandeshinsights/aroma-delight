@@ -50,7 +50,7 @@
   "about": {
     "headline": "Welcome to Aroma Delight",
     "description": "Aroma Delight brings the vibrant, authentic flavors of North India to Burlington, MA. We cook with traditional recipes, aromatic spices and fresh ingredients to create a dining experience that transports you to the bustling streets and kitchens of India. Every dish on our menu is 100% halal. Whether you are a longtime lover of Indian food or trying it for the first time, our team is here to make every meal memorable.",
-    "image": "/images/placeholder/interior.svg",
+    "image": "/images/photos/interior.jpg",
     "highlights": [
       {
         "icon": "heart",
@@ -76,7 +76,7 @@
   },
   "testimonials": [],
   "catering": {
-    "banner": "/images/placeholder/banner.svg",
+    "banner": "/images/photos/banner.jpg",
     "headline": "Catering Services",
     "description": "Let Aroma Delight bring authentic halal Indian food to your next event. We cater weddings, corporate events, birthday parties and more, and we will work with you on a custom menu that fits your taste and budget. Tell us about your event and we will follow up with a quote.",
     "eventTypes": [

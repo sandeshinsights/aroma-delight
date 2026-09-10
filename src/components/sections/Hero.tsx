@@ -9,12 +9,12 @@ import HeroBackdrop, { type HeroImage } from "@/components/HeroBackdrop";
  * - Two CTAs: "View Menu" (scrolls to #menu) and "Call to Order" (phone)
  * - Slowly drifting image behind a dark scrim
  *
- * The backdrop is a single branded placeholder for launch; drop real
- * photography into public/images/placeholder/hero.svg's slot (or point this
- * array at new files) and the crossfade machinery handles more than one.
+ * The backdrop is a licensed stock photo for launch (Unsplash, free commercial
+ * use); swap public/images/photos/hero.jpg for the restaurant's own. Point this
+ * array at more than one file and the crossfade machinery handles it.
  */
 const backdrop: HeroImage[] = [
-  { src: "/images/placeholder/hero-bg.svg", alt: "Aroma Delight dining room" },
+  { src: "/images/photos/hero.jpg", alt: "A spread of grilled tandoori skewers and vegetables" },
 ];
 
 export default function Hero() {

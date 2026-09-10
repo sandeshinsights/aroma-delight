@@ -10,19 +10,16 @@ import GalleryGrid, { type GalleryImage } from "@/components/GalleryGrid";
  * picture of a dining room the customer will never walk into is a different
  * kind of claim. The section copy talks about the food for the same reason.
  *
- * The six slots below point at branded placeholders; swap each `src` for a real
- * dish photo and keep the alt text describing what belongs there.
+ * The slots below use licensed stock photos for launch (Unsplash, free
+ * commercial use); swap each `src` for a real photo of the restaurant's food.
  */
-
-// Placeholder art for launch — swap each src for a real dish photo, keep the
-// alt text describing what should be there.
 const galleryImages: GalleryImage[] = [
-  { src: "/images/placeholder/dish-1.svg", alt: "Thali platter with curries, rice and breads" },
-  { src: "/images/placeholder/dish-2.svg", alt: "Garlic naan, fresh from the tandoor" },
-  { src: "/images/placeholder/dish-3.svg", alt: "Chicken tikka masala in a clay pot" },
-  { src: "/images/placeholder/dish-1.svg", alt: "Tandoori mixed grill platter" },
-  { src: "/images/placeholder/dish-2.svg", alt: "Vegetable samosa and pakora platter" },
-  { src: "/images/placeholder/dish-3.svg", alt: "Mango lassi and gulab jamun" },
+  { src: "/images/photos/dish-1.jpg", alt: "Curries served in karahi bowls with basmati rice" },
+  { src: "/images/photos/dish-2.jpg", alt: "Golden vegetable samosas with mint chutney" },
+  { src: "/images/photos/dish-3.jpg", alt: "Chicken biryani with saffron rice and fried onions" },
+  { src: "/images/photos/banner.jpg", alt: "Paneer tikka masala, naan and fresh herbs" },
+  { src: "/images/photos/interior.jpg", alt: "Butter chicken in a copper karahi with naan" },
+  { src: "/images/photos/hero.jpg", alt: "Grilled tandoori skewers and charred vegetables" },
 ];
 
 export default function Gallery() {

@@ -14,9 +14,9 @@ interface SpecialDetail extends ChefsSpecial {
 // content. When it comes back, map each special's id to its photo here.
 const specialPhotos: Record<string, string> = {};
 const FALLBACK_PHOTOS = [
-  "/images/placeholder/dish-1.svg",
-  "/images/placeholder/dish-2.svg",
-  "/images/placeholder/dish-3.svg",
+  "/images/photos/dish-1.jpg",
+  "/images/photos/dish-2.jpg",
+  "/images/photos/dish-3.jpg",
 ];
 
 export default function Specials() {

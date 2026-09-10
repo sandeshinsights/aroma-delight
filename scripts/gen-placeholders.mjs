@@ -4,9 +4,13 @@ const OUT = "C:/Projects/aroma-delights/public/images/placeholder";
 mkdirSync(OUT, { recursive: true });
 
 /**
- * Branded placeholder art. Warm dark ground, turmeric dot-lattice and a Mughal
- * arch outline — an intentional brand pattern, not a broken image. Swap each
- * file for a real photo later; keep the path.
+ * Branded SVG placeholder art (currently UNUSED — the site ships real photos in
+ * public/images/photos/). Kept in case a photo slot needs a placeholder again;
+ * to render SVGs through next/image you must re-add `dangerouslyAllowSVG: true`
+ * + a CSP to next.config.ts.
+ *
+ * Warm dark ground, turmeric dot-lattice and a Mughal arch outline — an
+ * intentional brand pattern, not a broken image.
  *
  * `mark`: draw the "AROMA DELIGHT / <label> PLACEHOLDER" wordmark.
  * `quiet`: scale every accent down (for art that sits behind headline text).
