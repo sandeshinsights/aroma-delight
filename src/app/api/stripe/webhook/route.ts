@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { getStripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { fulfillOrder } from "@/lib/order-fulfillment";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export const maxDuration = 60;
 
@@ -18,7 +17,7 @@ export async function POST(request: NextRequest) {
 
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET);
+    event = getStripe().webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err: any) {
     console.error("[stripe/webhook] Signature verification failed:", err.message);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });

@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { getStripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { createUberDelivery } from "@/lib/uber-direct";
 import { sendOrderToPrinter, sendFulfillmentAlert, type StuckOrderReport } from "@/lib/email";
 import { fulfillOrder, isScheduledForLater } from "@/lib/order-fulfillment";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export const maxDuration = 60;
 
@@ -76,7 +75,7 @@ async function recoverUnclaimedOrders(now: Date) {
   for (const order of unclaimed) {
     let session: Stripe.Checkout.Session;
     try {
-      session = await stripe.checkout.sessions.retrieve(order.stripeSessionId);
+      session = await getStripe().checkout.sessions.retrieve(order.stripeSessionId);
     } catch (err) {
       // Transient Stripe trouble. Leave the row pending and let the next run
       // decide — guessing here would either abandon a paid order or fulfill an

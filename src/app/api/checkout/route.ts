@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { getStripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import menuData from "@/data/menu.json";
@@ -21,10 +22,6 @@ import {
   getClientIp,
   getClientUserAgent,
 } from "@/lib/meta-capi";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-05-27.dahlia",
-});
 
 // Matches the webhook, verify-order and cron routes. Without it this route gets
 // the platform default, and a slow Uber quote or Stripe call reads to the
@@ -412,7 +409,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 6. Create Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",

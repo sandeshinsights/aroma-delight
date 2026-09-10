@@ -2,7 +2,26 @@ import { Resend } from "resend";
 import { formatScheduledDisplay } from "@/lib/ordering-hours";
 import { getRestaurantData } from "@/lib/data";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+/**
+ * Lazily constructed Resend client. The Resend constructor throws on a missing
+ * key, and `next build` evaluates this module while collecting page data — so
+ * building at module scope would make RESEND_API_KEY a build-time requirement.
+ * Deferring it keeps the build green before email is configured; any path that
+ * actually sends still gets a real client or a loud error.
+ */
+let resendClient: Resend | null = null;
+
+function getResend(): Resend {
+  if (resendClient) return resendClient;
+
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    throw new Error("RESEND_API_KEY is not set");
+  }
+
+  resendClient = new Resend(key);
+  return resendClient;
+}
 
 /**
  * Restaurant identity for the templates below — single source is
@@ -43,10 +62,10 @@ function esc(value: unknown): string {
  */
 async function sendOrThrow(
   label: string,
-  payload: Parameters<typeof resend.emails.send>[0],
+  payload: Parameters<Resend["emails"]["send"]>[0],
   idempotencyKey?: string
 ) {
-  const { data, error } = await resend.emails.send(
+  const { data, error } = await getResend().emails.send(
     payload,
     idempotencyKey ? { idempotencyKey } : undefined
   );

@@ -1,10 +1,8 @@
-import Stripe from "stripe";
+import { getStripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { sendOrderNotification, sendCustomerConfirmation, sendOrderToPrinter } from "@/lib/email";
 import { createUberDelivery, getUberDeliveryStatus } from "@/lib/uber-direct";
 import { queueMetaCapiEvent } from "@/lib/meta-capi";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 /**
  * Resend's default rate limit is 2 requests/second. Fulfillment fires three
@@ -182,7 +180,7 @@ async function describeFulfilledOrder(order: OrderRow): Promise<FulfillmentResul
 export async function fulfillOrder(sessionId: string): Promise<FulfillmentResult> {
   try {
     // 1. Verify with Stripe — nothing happens until payment is confirmed
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await getStripe().checkout.sessions.retrieve(sessionId);
     if (session.payment_status !== "paid") {
       return { success: false, message: "Payment not completed" };
     }
