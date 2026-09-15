@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { getMenuData, getMenuItemSlug } from "@/lib/data";
 import type { MenuItem, MenuCategory } from "@/lib/types";
-import { ShoppingCart, ChevronRight, Link2 } from "lucide-react";
+import { ShoppingCart, ChevronRight, ChevronLeft, Link2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 // Meta Pixel — browser-only funnel event. ViewContent has no server counterpart.
 import { trackMeta } from "@/lib/meta-pixel";
@@ -25,6 +25,76 @@ export default function Menu() {
 
   /* shareable-link copy feedback, keyed by menu item id */
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  /* category nav scroll affordance — the pill list can overflow and users
+     were missing categories off-screen with no hint to scroll. A slider
+     track under the pills stays visible the whole time (unlike the edge
+     fades, which vanish once you're scrolled to that end) and can be
+     dragged like a scrubber. */
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const categoryTrackRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [hasCategoryOverflow, setHasCategoryOverflow] = useState(false);
+  const [categoryThumb, setCategoryThumb] = useState({
+    widthPct: 100,
+    leftPct: 0,
+  });
+
+  const updateCategoryScrollState = useCallback(() => {
+    const el = categoryScrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    setHasCategoryOverflow(el.scrollWidth > el.clientWidth + 1);
+
+    const widthPct = Math.min(100, (el.clientWidth / el.scrollWidth) * 100);
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    const progress = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
+    setCategoryThumb({ widthPct, leftPct: progress * (100 - widthPct) });
+  }, []);
+
+  useEffect(() => {
+    updateCategoryScrollState();
+    window.addEventListener("resize", updateCategoryScrollState);
+    return () =>
+      window.removeEventListener("resize", updateCategoryScrollState);
+  }, [updateCategoryScrollState, categories]);
+
+  function scrollCategories(amount: number) {
+    categoryScrollRef.current?.scrollBy({ left: amount, behavior: "smooth" });
+  }
+
+  // Drag the slider thumb (or click the track) to scrub the category list.
+  // Assigning scrollLeft directly is instant even though the list itself
+  // has scroll-behavior: smooth, since that CSS only governs scrollTo/By.
+  function handleTrackPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    const scrollEl = categoryScrollRef.current;
+    const trackEl = categoryTrackRef.current;
+    if (!scrollEl || !trackEl) return;
+    e.preventDefault();
+    trackEl.setPointerCapture(e.pointerId);
+
+    const moveToPointer = (clientX: number) => {
+      const rect = trackEl.getBoundingClientRect();
+      const ratio = Math.min(
+        1,
+        Math.max(0, (clientX - rect.left) / rect.width)
+      );
+      const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+      scrollEl.scrollLeft = ratio * maxScroll;
+    };
+
+    moveToPointer(e.clientX);
+
+    const onMove = (ev: PointerEvent) => moveToPointer(ev.clientX);
+    const onUp = () => {
+      trackEl.removeEventListener("pointermove", onMove);
+      trackEl.removeEventListener("pointerup", onUp);
+    };
+    trackEl.addEventListener("pointermove", onMove);
+    trackEl.addEventListener("pointerup", onUp);
+  }
 
   /* ─── deep link ─── */
   // Open a specific dish on arrival when the URL carries ?item=menu-115 (with
@@ -141,25 +211,78 @@ export default function Menu() {
         </div>
 
         {/* sticky category nav */}
-        <div className="sticky top-[4.5rem] z-20 -mx-4 mb-8 border-y border-ink/10 bg-cream/95 px-4 py-3 backdrop-blur-sm sm:mx-0 sm:rounded-full sm:border sm:px-3">
-          <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {categories.map((cat: MenuCategory) => (
-              <button
-                key={cat.id}
-                onClick={() => {
-                  setSelectedCategory(cat.id);
-                  setExpandedItemId(null);
-                }}
-                className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-                  selectedCategory === cat.id
-                    ? "bg-primary text-cream"
-                    : "text-text-light hover:bg-primary/10 hover:text-primary"
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
+        <div className="sticky top-[4.5rem] z-20 -mx-4 mb-8 border-y border-ink/10 bg-cream/95 px-4 py-3 backdrop-blur-sm sm:mx-0 sm:rounded-2xl sm:border sm:px-3">
+          <div className="relative">
+            {canScrollLeft && (
+              <>
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-cream to-transparent sm:rounded-l-full" />
+                <button
+                  type="button"
+                  onClick={() => scrollCategories(-160)}
+                  aria-label="Scroll categories left"
+                  className="absolute left-0 top-1/2 z-20 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-cream text-primary shadow ring-1 ring-ink/10"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+              </>
+            )}
+
+            <div
+              ref={categoryScrollRef}
+              onScroll={updateCategoryScrollState}
+              className="flex gap-2 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {categories.map((cat: MenuCategory) => (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    setSelectedCategory(cat.id);
+                    setExpandedItemId(null);
+                  }}
+                  className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                    selectedCategory === cat.id
+                      ? "bg-primary text-cream"
+                      : "text-text-light hover:bg-primary/10 hover:text-primary"
+                  }`}
+                >
+                  {cat.name}
+                </button>
+              ))}
+            </div>
+
+            {canScrollRight && (
+              <>
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-cream to-transparent sm:rounded-r-full" />
+                <button
+                  type="button"
+                  onClick={() => scrollCategories(160)}
+                  aria-label="Scroll categories right"
+                  className="absolute right-0 top-1/2 z-20 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-cream text-primary shadow ring-1 ring-ink/10"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </>
+            )}
           </div>
+
+          {/* always-visible scroll slider — the edge fades/arrows above
+              disappear at either end, so this is the persistent hint that
+              there are more categories off-screen, plus a scrubber. */}
+          {hasCategoryOverflow && (
+            <div
+              ref={categoryTrackRef}
+              onPointerDown={handleTrackPointerDown}
+              className="relative mx-1 mt-2.5 h-1.5 cursor-pointer touch-none rounded-full bg-ink/10"
+            >
+              <div
+                className="absolute inset-y-0 rounded-full bg-primary/70"
+                style={{
+                  width: `${categoryThumb.widthPct}%`,
+                  left: `${categoryThumb.leftPct}%`,
+                }}
+              />
+            </div>
+          )}
         </div>
 
         {/* category title + description */}

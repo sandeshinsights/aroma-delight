@@ -170,10 +170,11 @@ export interface CateringMenuItem {
   id: string;
   name: string;
   category: string;
-  priceSmall: number;
-  priceLarge: number;
-  servesSmall: string;
-  servesLarge: string;
+  // Optional because not every item offers both tray sizes.
+  priceSmall?: number;
+  priceLarge?: number;
+  servesSmall?: string;
+  servesLarge?: string;
 }
 
 export interface CateringContent {

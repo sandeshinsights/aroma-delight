@@ -7,19 +7,13 @@ import {
   Phone,
   DollarSign,
   Clock3,
+  ChefHat,
 } from "lucide-react";
 import { getRestaurantData } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import CateringForm from "@/components/CateringForm";
+import CateringMenuAccordion from "@/components/CateringMenuAccordion";
 import Image from "next/image";
-
-/**
- * Catering Section — inquiry-only.
- *
- * Aroma Delight has no published catering price list, so this is an overview +
- * event types + a request-a-quote form. If a tray price list arrives later, add
- * it to restaurant.json `catering.menu` and render it back here.
- */
 
 const eventIcons: Record<string, React.ReactNode> = {
   "Weddings & Receptions": <PartyPopper className="h-5 w-5" />,
@@ -75,6 +69,27 @@ export default function Catering() {
             </div>
           ))}
         </div>
+
+        {/* Menu */}
+        {catering.menu.length > 0 && (
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_280px] lg:items-start">
+            <CateringMenuAccordion items={catering.menu} />
+
+            <aside className="rounded-xl border border-secondary/30 bg-secondary/10 p-6 lg:sticky lg:top-28">
+              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-secondary/20 text-secondary">
+                <ChefHat className="h-5 w-5" />
+              </div>
+              <h4 className="font-heading text-lg text-ink">
+                Don&apos;t see what you&apos;re looking for?
+              </h4>
+              <p className="mt-2 text-sm leading-relaxed text-text-light">
+                We also prepare dishes beyond what&apos;s listed here — tell
+                us what you&apos;d like in the form below and we&apos;ll
+                customize the menu for your event.
+              </p>
+            </aside>
+          </div>
+        )}
 
         {/* Terms */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

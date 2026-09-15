@@ -43,13 +43,13 @@
   },
   "hero": {
     "headline": "Authentic Halal Indian Cuisine in Burlington",
-    "subheadline": "The vibrant flavors of North India, made with traditional recipes and fresh ingredients. 100% halal, served for dine-in, takeout and delivery.",
+    "subheadline": "The vibrant flavors of India and Nepal, made with traditional recipes and fresh ingredients. 100% halal, served for dine-in, takeout and delivery.",
     "ctaPrimary": "View Our Menu",
     "ctaSecondary": "Call to Order"
   },
   "about": {
     "headline": "Welcome to Aroma Delight",
-    "description": "Aroma Delight brings the vibrant, authentic flavors of North India to Burlington, MA. We cook with traditional recipes, aromatic spices and fresh ingredients to create a dining experience that transports you to the bustling streets and kitchens of India. Every dish on our menu is 100% halal. Whether you are a longtime lover of Indian food or trying it for the first time, our team is here to make every meal memorable.",
+    "description": "Aroma Delight brings the vibrant, authentic flavors of India and Nepal to Burlington, MA. We cook with traditional recipes, aromatic spices and fresh ingredients to create a dining experience that transports you to the bustling streets and kitchens of India. Every dish on our menu is 100% halal. Whether you are a longtime lover of Indian food or trying it for the first time, our team is here to make every meal memorable.",
     "image": "/images/photos/interior.jpg",
     "highlights": [
       {
@@ -59,7 +59,7 @@
       },
       {
         "icon": "chef-hat",
-        "title": "North Indian Roots",
+        "title": "Indian & Nepali Roots",
         "description": "Our chefs cook the classics the traditional way — tandoori, rich curries, biryanis and fresh-baked naan straight from the clay oven."
       },
       {
@@ -139,7 +139,171 @@
         "required": false
       }
     ],
-    "menu": [],
+    "menu": [
+      {
+        "id": "catering-1",
+        "name": "Naan Bread",
+        "category": "Breads & Rice",
+        "priceSmall": 30,
+        "servesSmall": "10 pcs"
+      },
+      {
+        "id": "catering-2",
+        "name": "Basmati Rice",
+        "category": "Breads & Rice",
+        "priceSmall": 30,
+        "priceLarge": 55
+      },
+      {
+        "id": "catering-3",
+        "name": "Vegetable Samosa",
+        "category": "Appetizers",
+        "priceSmall": 2.25,
+        "servesSmall": "Each"
+      },
+      {
+        "id": "catering-4",
+        "name": "Vegetable Pakora",
+        "category": "Appetizers",
+        "priceSmall": 35,
+        "priceLarge": 70
+      },
+      {
+        "id": "catering-5",
+        "name": "Chicken Kabab",
+        "category": "Appetizers",
+        "priceSmall": 80,
+        "servesSmall": "20 pcs",
+        "priceLarge": 155,
+        "servesLarge": "40 pcs"
+      },
+      {
+        "id": "catering-6",
+        "name": "Chicken Biryani with Bone",
+        "category": "Biryani",
+        "priceSmall": 70,
+        "priceLarge": 125
+      },
+      {
+        "id": "catering-7",
+        "name": "Chicken Biryani Boneless",
+        "category": "Biryani",
+        "priceSmall": 80,
+        "priceLarge": 140
+      },
+      {
+        "id": "catering-8",
+        "name": "Vegetable Biryani",
+        "category": "Biryani",
+        "priceSmall": 60,
+        "priceLarge": 110
+      },
+      {
+        "id": "catering-9",
+        "name": "Goat Biryani",
+        "category": "Biryani",
+        "priceSmall": 120,
+        "priceLarge": 220
+      },
+      {
+        "id": "catering-10",
+        "name": "Any Goat Dishes",
+        "category": "Entrees",
+        "priceSmall": 140,
+        "priceLarge": 275
+      },
+      {
+        "id": "catering-11",
+        "name": "Goat Curry",
+        "category": "Entrees",
+        "priceSmall": 140,
+        "priceLarge": 275
+      },
+      {
+        "id": "catering-12",
+        "name": "Any Lamb Dishes",
+        "category": "Entrees",
+        "priceSmall": 140,
+        "priceLarge": 275
+      },
+      {
+        "id": "catering-13",
+        "name": "Lamb Curry",
+        "category": "Entrees",
+        "priceLarge": 275,
+        "servesLarge": "Full Tray"
+      },
+      {
+        "id": "catering-14",
+        "name": "Any Chicken Dishes",
+        "category": "Entrees",
+        "priceSmall": 170,
+        "priceLarge": 220
+      },
+      {
+        "id": "catering-15",
+        "name": "Tandoori Chicken",
+        "category": "Entrees",
+        "priceSmall": 110,
+        "priceLarge": 220
+      },
+      {
+        "id": "catering-16",
+        "name": "Chicken Tikka Masala",
+        "category": "Entrees",
+        "priceSmall": 120,
+        "priceLarge": 220
+      },
+      {
+        "id": "catering-17",
+        "name": "Chicken Curry",
+        "category": "Entrees",
+        "priceSmall": 110,
+        "priceLarge": 200
+      },
+      {
+        "id": "catering-18",
+        "name": "Chicken Chilli",
+        "category": "Entrees",
+        "priceSmall": 120,
+        "priceLarge": 200
+      },
+      {
+        "id": "catering-19",
+        "name": "Any Paneer Dishes",
+        "category": "Entrees",
+        "priceSmall": 125,
+        "priceLarge": 180
+      },
+      {
+        "id": "catering-20",
+        "name": "Saag Paneer",
+        "category": "Entrees",
+        "priceSmall": 100,
+        "priceLarge": 180
+      },
+      {
+        "id": "catering-21",
+        "name": "Any Vegetable Dishes",
+        "category": "Entrees",
+        "priceSmall": 70,
+        "priceLarge": 125
+      },
+      {
+        "id": "catering-22",
+        "name": "Dal Tadka",
+        "category": "Entrees",
+        "priceSmall": 70,
+        "priceLarge": 125
+      },
+      {
+        "id": "catering-23",
+        "name": "Tofu Dishes",
+        "category": "Entrees",
+        "priceSmall": 120,
+        "priceLarge": 180
+      }
+    ],
     "minOrder": 150,
     "advanceNotice": "At least 48 hours notice required for all catering orders"
   },
