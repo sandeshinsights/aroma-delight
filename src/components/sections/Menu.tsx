@@ -3,7 +3,15 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { getMenuData, getMenuItemSlug } from "@/lib/data";
 import type { MenuItem, MenuCategory } from "@/lib/types";
-import { ShoppingCart, ChevronRight, ChevronLeft, Link2 } from "lucide-react";
+import {
+  ShoppingCart,
+  ChevronRight,
+  ChevronLeft,
+  Link2,
+  Search,
+  X,
+  Gift,
+} from "lucide-react";
 import { useCart } from "@/context/CartContext";
 // Meta Pixel — browser-only funnel event. ViewContent has no server counterpart.
 import { trackMeta } from "@/lib/meta-pixel";
@@ -25,6 +33,16 @@ export default function Menu() {
 
   /* shareable-link copy feedback, keyed by menu item id */
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  /* search — matches across every category, not just the selected one */
+  const [searchQuery, setSearchQuery] = useState("");
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const isSearching = normalizedQuery.length > 0;
+
+  function handleSearchChange(value: string) {
+    setSearchQuery(value);
+    setExpandedItemId(null);
+  }
 
   /* category nav scroll affordance — the pill list can overflow and users
      were missing categories off-screen with no hint to scroll. A slider
@@ -173,6 +191,26 @@ export default function Menu() {
     [categories, selectedCategory]
   );
 
+  // While searching, results span every category, so each item is paired
+  // with its own category name instead of relying on activeCategory.
+  const visibleItems = useMemo(() => {
+    if (isSearching) {
+      return categories.flatMap((cat) =>
+        (cat.items ?? [])
+          .filter(
+            (item) =>
+              item.name.toLowerCase().includes(normalizedQuery) ||
+              item.description?.toLowerCase().includes(normalizedQuery)
+          )
+          .map((item) => ({ item, categoryName: cat.name }))
+      );
+    }
+    return (activeCategory?.items ?? []).map((item) => ({
+      item,
+      categoryName: activeCategory?.name ?? "",
+    }));
+  }, [categories, isSearching, normalizedQuery, activeCategory]);
+
   /* ─── helpers ─── */
 
   function handleToggleExpand(item: MenuItem, categoryName?: string) {
@@ -210,7 +248,50 @@ export default function Menu() {
           <div className="mx-auto mt-5 h-px w-16 bg-secondary" />
         </div>
 
-        {/* sticky category nav */}
+        {/* free-item offer */}
+        <div className="mx-auto mb-8 flex max-w-2xl items-start gap-4 rounded-xl border border-secondary/30 bg-secondary/10 p-5">
+          <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary/20 text-secondary">
+            <Gift className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="font-heading text-lg text-ink">
+              Spend $50, get a free Mango Lassi
+            </p>
+            <p className="font-heading text-lg text-ink">
+              Spend $100, get a free Vegetable Samosa + Mango Lassi
+            </p>
+            <p className="mt-1 text-sm text-text-light">
+              Add it to your cart and it comes off at checkout.
+            </p>
+          </div>
+        </div>
+
+        {/* search */}
+        <div className="relative mx-auto mb-6 max-w-md">
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-light" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            placeholder="Search the menu…"
+            aria-label="Search the menu"
+            className="w-full rounded-full border border-ink/10 bg-white py-2.5 pl-11 pr-10 text-sm text-ink placeholder:text-text-light focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => handleSearchChange("")}
+              aria-label="Clear search"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-light transition-colors hover:text-primary"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+
+        {/* sticky category nav — hidden while searching since results span
+            every category and the selected pill would be misleading */}
+        {!isSearching && (
         <div className="sticky top-[4.5rem] z-20 -mx-4 mb-8 border-y border-ink/10 bg-cream/95 px-4 py-3 backdrop-blur-sm sm:mx-0 sm:rounded-2xl sm:border sm:px-3">
           <div className="relative">
             {canScrollLeft && (
@@ -284,22 +365,40 @@ export default function Menu() {
             </div>
           )}
         </div>
+        )}
 
-        {/* category title + description */}
+        {/* category title + description, or a search-results summary */}
         <div className="mb-5">
-          <h3 className="font-heading text-2xl text-ink">
-            {activeCategory?.name}
-          </h3>
-          {activeCategory?.description && (
-            <p className="mt-1 text-sm text-text-light">
-              {activeCategory.description}
-            </p>
+          {isSearching ? (
+            <>
+              <h3 className="font-heading text-2xl text-ink">
+                Search results
+              </h3>
+              <p className="mt-1 text-sm text-text-light">
+                {visibleItems.length === 0
+                  ? `No dishes match "${searchQuery.trim()}".`
+                  : `${visibleItems.length} dish${
+                      visibleItems.length === 1 ? "" : "es"
+                    } match "${searchQuery.trim()}".`}
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 className="font-heading text-2xl text-ink">
+                {activeCategory?.name}
+              </h3>
+              {activeCategory?.description && (
+                <p className="mt-1 text-sm text-text-light">
+                  {activeCategory.description}
+                </p>
+              )}
+            </>
           )}
         </div>
 
         {/* items list */}
         <div className="divide-y divide-ink/10 border-y border-ink/10">
-          {activeCategory?.items?.map((item: MenuItem) => {
+          {visibleItems.map(({ item, categoryName }) => {
             const isExpanded = expandedItemId === item.id;
 
             return (
@@ -310,10 +409,15 @@ export default function Menu() {
               >
                 {/* header row */}
                 <button
-                  onClick={() => handleToggleExpand(item, activeCategory.name)}
+                  onClick={() => handleToggleExpand(item, categoryName)}
                   className="flex w-full items-baseline gap-4 py-4 text-left transition-colors hover:bg-primary/[0.04]"
                 >
                   <div className="min-w-0 flex-1">
+                    {isSearching && (
+                      <p className="text-[0.65rem] font-semibold uppercase tracking-wider text-secondary">
+                        {categoryName}
+                      </p>
+                    )}
                     <h4 className="font-heading text-lg text-ink">
                       {item.name}
                       {item.tags?.includes("Vegan") && (
@@ -357,7 +461,7 @@ export default function Menu() {
 
                     <MenuItemOrderForm
                       item={item}
-                      categoryName={activeCategory.name}
+                      categoryName={categoryName}
                       onAdded={() => setExpandedItemId(null)}
                     />
 
