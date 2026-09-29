@@ -65,7 +65,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="font-heading text-xl font-bold text-primary mb-3">4. Third-Party Services</h2>
             <p>
-              Our website integrates with third-party services including Stripe for payment processing, Uber Direct for deliveries, Google Analytics for website analytics, Meta (Facebook and Instagram) for advertising measurement, Google Maps for directions, and social media platforms for sharing features. These services have their own privacy policies governing the use of your information.
+              Our website integrates with third-party services including Stripe for payment processing, the U.S. Census Bureau geocoding service to check that a delivery address is within our delivery area, delivery partners such as Uber Direct when they carry out a delivery, Google Analytics for website analytics, Meta (Facebook and Instagram) for advertising measurement, Google Maps for directions, and social media platforms for sharing features. These services have their own privacy policies governing the use of your information.
             </p>
           </section>
 

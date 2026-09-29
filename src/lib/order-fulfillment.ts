@@ -2,6 +2,7 @@ import { getStripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { sendOrderNotification, sendCustomerConfirmation, sendOrderToPrinter } from "@/lib/email";
 import { createUberDelivery, getUberDeliveryStatus } from "@/lib/uber-direct";
+import { DELIVERY_CONFIG } from "@/lib/delivery";
 import { queueMetaCapiEvent } from "@/lib/meta-capi";
 
 /**
@@ -17,7 +18,8 @@ export interface FulfillmentResult {
   success: boolean;
   orderId?: string;
   isDelivery?: boolean;
-  deliveryType?: "asap" | "scheduled" | "manual_fallback";
+  /** "staff" = restaurant staff deliver (temporary, DELIVERY_CONFIG.provider). */
+  deliveryType?: "asap" | "scheduled" | "manual_fallback" | "staff";
   scheduledFor?: string;
   uberDeliveryId?: string;
   uberDeliveryStatus?: string;
@@ -96,8 +98,13 @@ function buildPurchaseSummary(order: OrderRow): MetaPurchaseSummary {
 
 type OrderRow = NonNullable<Awaited<ReturnType<typeof prisma.order.findUnique>>>;
 
-/** Dispatch outcome persisted on the order — see `dispatchState` in schema.prisma. */
-type DispatchState = "dispatched" | "failed";
+/**
+ * Dispatch outcome persisted on the order — see `dispatchState` in schema.prisma.
+ * "staff" = no courier by design: restaurant staff deliver (temporary, while
+ * DELIVERY_CONFIG.provider is "staff"). The cron treats it as settled, like
+ * "failed", so it never tries to send an Uber courier for these orders.
+ */
+type DispatchState = "dispatched" | "failed" | "staff";
 
 /**
  * A scheduled order is one whose pickup is far enough out that the courier is
@@ -141,6 +148,8 @@ async function describeFulfilledOrder(order: OrderRow): Promise<FulfillmentResul
       } catch {
         uberDeliveryStatus = order.uberDeliveryStatus || undefined;
       }
+    } else if (order.dispatchState === "staff") {
+      deliveryType = "staff";
     } else if (scheduledLater) {
       deliveryType = "scheduled";
     } else if (order.dispatchState === "failed") {
@@ -294,7 +303,7 @@ export async function fulfillOrder(sessionId: string): Promise<FulfillmentResult
     let uberDeliveryStatus: string | undefined;
     let trackingUrl: string | undefined;
     let dropoffEta: string | undefined;
-    let deliveryType: "asap" | "scheduled" | "manual_fallback" = "manual_fallback";
+    let deliveryType: NonNullable<FulfillmentResult["deliveryType"]> = "manual_fallback";
     let scheduledForResponse: string | undefined;
 
     if (isDelivery && deliveryAddress) {
@@ -316,6 +325,12 @@ export async function fulfillOrder(sessionId: string): Promise<FulfillmentResult
         uberDeliveryStatus = current.uberDeliveryStatus || undefined;
         deliveryType = isScheduled ? "scheduled" : "asap";
         dispatchState = "dispatched";
+      } else if (DELIVERY_CONFIG.provider === "staff") {
+        // Temporary: restaurant staff deliver. No courier to request — the
+        // kitchen slip (already sent above) carries the address.
+        deliveryType = "staff";
+        scheduledForResponse = isScheduled ? scheduledFor : undefined;
+        dispatchState = "staff";
       } else {
         try {
           const result = await createUberDelivery({

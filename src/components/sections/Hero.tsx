@@ -1,3 +1,4 @@
+import { Bike, Star } from "lucide-react";
 import { getRestaurantData } from "@/lib/data";
 import HeroBackdrop, { type HeroImage } from "@/components/HeroBackdrop";
 
@@ -18,7 +19,7 @@ const backdrop: HeroImage[] = [
 ];
 
 export default function Hero() {
-  const { hero, phone } = getRestaurantData();
+  const { hero, phone, rating } = getRestaurantData();
 
   return (
     <section
@@ -55,6 +56,39 @@ export default function Hero() {
               {hero.ctaSecondary}
             </a>
           </div>
+
+          {/*
+            Social proof under the CTAs. The rating links out to the live Google
+            listing rather than being asserted on-page — see the note in
+            restaurant.json's `rating`. Rendered only when there is a real count,
+            so a placeholder 0 never ships as "0 Google reviews".
+          */}
+          {rating.count > 0 && (
+            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-cream/80 motion-safe:animate-rise [animation-delay:650ms]">
+              <a
+                href={rating.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 transition-colors hover:text-cream"
+              >
+                <Star className="h-4 w-4 fill-secondary text-secondary" aria-hidden="true" />
+                <span className="font-semibold text-cream">{rating.value}</span>
+                <span className="text-cream/50" aria-hidden="true">
+                  &middot;
+                </span>
+                <span className="underline decoration-cream/30 underline-offset-4 group-hover:decoration-cream">
+                  {rating.count} {rating.source} reviews
+                </span>
+              </a>
+
+              <span className="h-4 w-px bg-cream/25" aria-hidden="true" />
+
+              <span className="inline-flex items-center gap-2">
+                <Bike className="h-4 w-4 text-cream/70" aria-hidden="true" />
+                Pickup &amp; Delivery
+              </span>
+            </div>
+          )}
         </div>
       </div>
 

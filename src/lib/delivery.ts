@@ -21,6 +21,15 @@ const R = getRestaurantData();
 export const DELIVERY_CONFIG = {
   enabled: true,
 
+  // Who delivers. TEMPORARY: "staff" until the Uber Direct account exists —
+  // restaurant staff deliver for a flat fee within staffRadiusMiles, measured
+  // straight-line from restaurantLat/Lng (src/lib/staff-delivery.ts). Flip back
+  // to "uber" once the UBER_DIRECT_* credentials are real; the Uber path is
+  // untouched and every staff branch keys off this one value.
+  provider: "staff" as "staff" | "uber",
+  staffFee: 4.99,
+  staffRadiusMiles: 6,
+
   // Fee configuration
   feeType: "uber_quote" as "flat" | "uber_quote" | "distance",
   flatFee: 6.99,

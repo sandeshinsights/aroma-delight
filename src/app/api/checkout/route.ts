@@ -13,6 +13,7 @@ import {
 } from "@/lib/ordering-hours";
 import { DELIVERY_CONFIG } from "@/lib/delivery";
 import { getUberQuote } from "@/lib/uber-direct";
+import { getStaffDeliveryQuote, StaffDeliveryError } from "@/lib/staff-delivery";
 import { getOptionSurcharge } from "@/lib/pricing";
 import { calculateFreeItemOffer } from "@/lib/free-item-offer";
 import { isOnlineOrderingEnabled } from "@/lib/data";
@@ -302,19 +303,38 @@ export async function POST(req: NextRequest) {
       }
 
       let serverFee: number;
-      try {
-        const quote = await getUberQuote(
-          DELIVERY_CONFIG.restaurantAddress,
-          deliveryAddress.trim(),
-          scheduledForIso
-        );
-        serverFee = quote.fee;
-      } catch (err) {
-        console.error("[Checkout] Delivery quote failed:", err instanceof Error ? err.message : err);
-        return NextResponse.json(
-          { error: "We couldn't confirm delivery to this address. Please check the address or choose pickup." },
-          { status: 422 }
-        );
+      if (DELIVERY_CONFIG.provider === "staff") {
+        // Temporary staff delivery: flat fee, radius re-checked here because
+        // the cart's quote is only what the customer was shown.
+        try {
+          serverFee = (await getStaffDeliveryQuote(deliveryAddress.trim())).fee;
+        } catch (err) {
+          console.error("[Checkout] Staff delivery check failed:", err instanceof Error ? err.message : err);
+          return NextResponse.json(
+            {
+              error:
+                err instanceof StaffDeliveryError
+                  ? err.message
+                  : "We couldn't confirm delivery to this address. Please check the address or choose pickup.",
+            },
+            { status: 422 }
+          );
+        }
+      } else {
+        try {
+          const quote = await getUberQuote(
+            DELIVERY_CONFIG.restaurantAddress,
+            deliveryAddress.trim(),
+            scheduledForIso
+          );
+          serverFee = quote.fee;
+        } catch (err) {
+          console.error("[Checkout] Delivery quote failed:", err instanceof Error ? err.message : err);
+          return NextResponse.json(
+            { error: "We couldn't confirm delivery to this address. Please check the address or choose pickup." },
+            { status: 422 }
+          );
+        }
       }
 
       // If Uber's price moved past what the customer was shown, make them

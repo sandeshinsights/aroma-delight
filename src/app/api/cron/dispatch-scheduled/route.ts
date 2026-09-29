@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { createUberDelivery } from "@/lib/uber-direct";
+import { DELIVERY_CONFIG } from "@/lib/delivery";
 import { sendOrderToPrinter, sendFulfillmentAlert, type StuckOrderReport } from "@/lib/email";
 import { fulfillOrder, isScheduledForLater } from "@/lib/order-fulfillment";
 
@@ -233,7 +234,15 @@ async function recoverStuckOrders(now: Date) {
 
     // --- Delivery with no courier and no recorded outcome ---
     if (order.isDelivery && !order.uberDeliveryId && order.dispatchState === null) {
-      if (isScheduledForLater(order.scheduledFor)) {
+      if (DELIVERY_CONFIG.provider === "staff") {
+        // Temporary staff delivery: fulfillment died before recording the
+        // outcome, but there is no courier to request — staff deliver from the
+        // kitchen slip (re-printed above if it was missing). Settle it.
+        await prisma.order.update({
+          where: { id: order.id },
+          data: { dispatchState: "staff" },
+        });
+      } else if (isScheduledForLater(order.scheduledFor)) {
         // Not stuck — just not due yet. Re-dispatching here would send a courier
         // today for tomorrow's order, since this path requests an ASAP delivery.
         // The scheduled-dispatch pass above picks it up when its window arrives.
@@ -332,7 +341,10 @@ export async function GET(request: Request) {
   const nowISO = now.toISOString();
   const windowEndISO = new Date(now.getTime() + 30 * 60 * 1000).toISOString();
 
-  const pendingOrders = await prisma.order.findMany({
+  // Staff-delivered orders (dispatchState "staff") never get a courier, and
+  // while the provider is "staff" this pass requests none at all. The explicit
+  // null branch matters: Prisma's `not` alone would also drop null rows.
+  const pendingOrders = DELIVERY_CONFIG.provider === "staff" ? [] : await prisma.order.findMany({
     where: {
       isDelivery: true,
       status: "paid",
@@ -341,6 +353,7 @@ export async function GET(request: Request) {
         lte: windowEndISO,
       },
       uberDeliveryId: null,
+      OR: [{ dispatchState: null }, { dispatchState: { not: "staff" } }],
     },
   });
 

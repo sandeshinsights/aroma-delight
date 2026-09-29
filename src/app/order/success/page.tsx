@@ -13,7 +13,7 @@ interface VerifyResult {
   success: boolean;
   orderId?: string;
   isDelivery?: boolean;
-  deliveryType?: "asap" | "scheduled" | "manual_fallback";
+  deliveryType?: "asap" | "scheduled" | "manual_fallback" | "staff";
   scheduledFor?: string;
   uberDeliveryId?: string;
   uberDeliveryStatus?: string;
@@ -192,6 +192,7 @@ export default function OrderSuccess() {
   const hasUberTracking = deliveryType === "asap" && !!orderInfo?.uberDeliveryId;
   const isScheduled = deliveryType === "scheduled";
   const isManual = deliveryType === "manual_fallback";
+  const isStaff = deliveryType === "staff";
   // No outcome yet — say nothing definite. Better to leave this on screen than to
   // claim a manual delivery for an order whose driver is being assigned.
   const isDispatchPending = !!orderInfo?.dispatchPending;
@@ -302,6 +303,28 @@ export default function OrderSuccess() {
                 <p className="text-sm text-gray-500">
                   Your payment went through and the kitchen has your order. We&apos;re
                   assigning a driver now — tracking will appear here in a moment.
+                </p>
+              </>
+            )}
+
+            {/* STAFF — restaurant staff deliver (temporary, until Uber Direct) */}
+            {isStaff && (
+              <>
+                <div className="flex items-center gap-2 mb-3">
+                  <Truck className="w-5 h-5 text-secondary" />
+                  <span className="font-semibold text-primary">
+                    {scheduledString ? "Delivery Scheduled" : "Delivery Confirmed"}
+                  </span>
+                </div>
+                {scheduledString && (
+                  <p className="text-sm text-gray-600 mb-1">
+                    Your delivery is scheduled for{" "}
+                    <span className="font-semibold text-primary">{scheduledString}</span>
+                  </p>
+                )}
+                <p className="text-sm text-gray-500">
+                  Our own team will deliver your order{scheduledString ? " at your scheduled time" : " as soon as it's ready"}.
+                  If you have any questions, please call us.
                 </p>
               </>
             )}

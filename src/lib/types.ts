@@ -119,6 +119,8 @@ export interface Rating {
   value: number;
   count: number;
   source: string;
+  /** Public listing the rating links out to, so visitors can read/leave reviews. */
+  url: string;
 }
 
 export interface SocialLinks {

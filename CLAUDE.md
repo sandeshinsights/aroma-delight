@@ -30,6 +30,17 @@ below the "Big picture" heading still describes that engine accurately.
    Uber Direct, Vercel, domain. All env vars are new.
 5. **New analytics/ads integrations** — see "Google Ads + Google Business Profile" below.
 
+## ⚠️ Delivery is temporarily staff-run, NOT Uber
+
+Uber Direct is not provisioned yet. `DELIVERY_CONFIG.provider` (`src/lib/delivery.ts`) is
+`"staff"`: restaurant staff deliver for a flat `staffFee` ($4.99) within `staffRadiusMiles`
+(6 mi, straight-line from `restaurant.json` `geo`, address geocoded by the free US Census
+geocoder in `src/lib/staff-delivery.ts`). Beyond that, quote and checkout both return
+"Contact the restaurant for delivery if you are located beyond 6 miles." Fulfillment records
+`dispatchState = "staff"` and never calls Uber; the cron skips the scheduled-dispatch pass and
+settles null-state delivery orders as `"staff"` instead of re-dispatching. The Uber workflow
+described below is intact — set `provider: "uber"` once real `UBER_DIRECT_*` credentials exist.
+
 ## Google Ads + Google Business Profile (new for Aroma Delights)
 
 The Cafe of India build has **Meta Pixel + Conversions API** (`src/lib/meta-pixel.ts`,

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUberQuote } from "@/lib/uber-direct";
 import { getRestaurantData } from "@/lib/data";
+import { DELIVERY_CONFIG } from "@/lib/delivery";
+import { getStaffDeliveryQuote, StaffDeliveryError } from "@/lib/staff-delivery";
 
 const R = getRestaurantData();
 
@@ -17,6 +19,28 @@ export async function POST(req: NextRequest) {
         { error: "Please enter a full street address" },
         { status: 400 }
       );
+    }
+
+    // Staff delivery (temporary, until Uber Direct is set up): flat fee inside
+    // the radius. The fee doesn't depend on the scheduled time.
+    if (DELIVERY_CONFIG.provider === "staff") {
+      try {
+        const quote = await getStaffDeliveryQuote(address.trim());
+        return NextResponse.json({
+          fee: quote.fee,
+          customerPays: quote.fee,
+          restaurantPays: 0,
+        });
+      } catch (err) {
+        const message =
+          err instanceof StaffDeliveryError
+            ? err.message
+            : `We couldn't check this address right now. Please try again, or call us at ${R.phoneDisplay} to order delivery.`;
+        return NextResponse.json(
+          { error: message, fee: 0, customerPays: 0, restaurantPays: 0 },
+          { status: 422 }
+        );
+      }
     }
 
     // Only forward a parseable date — an invalid one would throw inside

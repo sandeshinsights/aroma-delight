@@ -37,9 +37,10 @@
     "lng": -71.2005692
   },
   "rating": {
-    "value": 0,
-    "count": 0,
-    "source": "Google"
+    "value": 4.7,
+    "count": 284,
+    "source": "Google",
+    "url": "https://www.google.com/maps/search/?api=1&query=Aroma%20Delight%20Indian%2C%20Pakistani%20%26%20Nepali%20Cuisine%20-%20Halal%2C%20184%20Cambridge%20St%2C%20Burlington%2C%20MA%2001803"
   },
   "hero": {
     "headline": "Authentic Halal Indian Cuisine in Burlington",
@@ -322,7 +323,7 @@
     },
     {
       "question": "Do you offer delivery?",
-      "answer": "Yes. You can order delivery or pickup directly on this site, and we also take orders by phone at (781) 273-0111. Delivery is handled by our courier partner to addresses within about 10 miles of the restaurant, with a $20 minimum order. The delivery fee is quoted for your address before you pay."
+      "answer": "Yes. You can order delivery or pickup directly on this site, and we also take orders by phone at (781) 273-0111. Our own team delivers to addresses within 6 miles of the restaurant for a flat $4.99 fee, with a $20 minimum order. If you are located beyond 6 miles, please call us about delivery."
     },
     {
       "question": "What are your hours?",
