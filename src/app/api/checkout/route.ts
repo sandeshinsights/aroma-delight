@@ -70,6 +70,12 @@ const checkoutSchema = z.object({
       fbc: z.string().max(400).optional(),
     })
     .optional(),
+  // Google Ads click id, same "never load-bearing" rule as `meta` above.
+  google: z
+    .object({
+      gclid: z.string().max(200).optional(),
+    })
+    .optional(),
 });
 
 function getMenuItemPrice(itemId: string): { price: number; category: string } | null {
@@ -98,7 +104,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const parsed = checkoutSchema.parse(body);
 
-    const { name, email, phone, items, promoCodeId, scheduledDate, scheduledTime, tipAmount, isDelivery, deliveryAddress, deliveryApt, deliveryInstructions, deliveryFee, meta } = parsed;
+    const { name, email, phone, items, promoCodeId, scheduledDate, scheduledTime, tipAmount, isDelivery, deliveryAddress, deliveryApt, deliveryInstructions, deliveryFee, meta, google } = parsed;
 
     // Meta attribution signals. IP and user-agent must be the CUSTOMER's, which
     // is only true here — by the time fulfillment runs, the "client" is Stripe's
@@ -464,6 +470,10 @@ export async function POST(req: NextRequest) {
         ...(metaClientUserAgent && metaClientUserAgent.length <= 500
           ? { fb_client_ua: metaClientUserAgent }
           : {}),
+        // Google Ads click id, kept for a future server-side (offline)
+        // conversion upload. Nothing reads it yet; the browser-side conversion
+        // uses gtag's own _gcl_aw cookie.
+        ...(google?.gclid ? { g_gclid: google.gclid } : {}),
       },
     });
 

@@ -46,7 +46,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="font-heading text-xl font-bold text-primary mb-3">3. Cookies</h2>
             <p>
-              We use cookies to track information about your visit to our website. We use Google Analytics to understand how visitors interact with our website. Google Analytics uses cookies to collect information such as how often users visit, what pages they visit, and what other sites they used prior to coming to our website. You can opt out of Google Analytics by installing the Google Analytics opt-out browser add-on or by declining our cookie consent banner.
+              We use cookies to track information about your visit to our website. We use Google Analytics to understand how visitors interact with our website. Google Analytics uses cookies to collect information such as how often users visit, what pages they visit, and what other sites they used prior to coming to our website. You can opt out of Google Analytics by installing the Google Analytics opt-out browser add-on or by choosing &ldquo;Decline&rdquo; on our cookie banner.
             </p>
             <p className="mt-3">
               We also use the Meta Pixel (Facebook and Instagram) to measure the effectiveness of our advertising. The Meta Pixel sets cookies that record actions you take on this site &mdash; such as viewing a menu item, adding an item to your cart, starting checkout, completing an order, or submitting a catering inquiry &mdash; and reports them to Meta so we can understand which ads lead to orders and show relevant ads to people likely to be interested in our restaurant. You can control how Meta uses this information through your{" "}
@@ -60,12 +60,24 @@ export default function PrivacyPage() {
               </a>{" "}
               and limit tracking through your browser or device settings.
             </p>
+            <p className="mt-3">
+              We also use Google Ads conversion tracking to measure which of our Google ads lead to orders, catering inquiries, and phone calls. Google&rsquo;s cookies record when you arrive from one of our ads and when you start checkout, complete an order, submit a catering inquiry, or tap our phone number. When you complete an order, start checkout, or submit a catering inquiry, we also send Google a hashed (irreversibly scrambled) copy of your email address and phone number so it can match the conversion to a Google account (&ldquo;enhanced conversions&rdquo;); Google does not receive these details in readable form. Google Ads and Google Analytics load for all visitors; choosing &ldquo;Decline&rdquo; on our cookie banner turns off Google&rsquo;s advertising and analytics cookies for your browser. Visitors from the European Economic Area, the United Kingdom, and Switzerland are opted out until they choose &ldquo;Accept.&rdquo; You can also manage Google&rsquo;s use of your data through{" "}
+              <a
+                href="https://myadcenter.google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary underline hover:text-primary transition-colors"
+              >
+                My Ad Center
+              </a>
+              .
+            </p>
           </section>
 
           <section>
             <h2 className="font-heading text-xl font-bold text-primary mb-3">4. Third-Party Services</h2>
             <p>
-              Our website integrates with third-party services including Stripe for payment processing, the U.S. Census Bureau geocoding service to check that a delivery address is within our delivery area, delivery partners such as Uber Direct when they carry out a delivery, Google Analytics for website analytics, Meta (Facebook and Instagram) for advertising measurement, Google Maps for directions, and social media platforms for sharing features. These services have their own privacy policies governing the use of your information.
+              Our website integrates with third-party services including Stripe for payment processing, the U.S. Census Bureau geocoding service to check that a delivery address is within our delivery area, delivery partners such as Uber Direct when they carry out a delivery, Google Analytics for website analytics, Google Ads and Meta (Facebook and Instagram) for advertising measurement, Google Maps for directions, and social media platforms for sharing features. These services have their own privacy policies governing the use of your information.
             </p>
           </section>
 

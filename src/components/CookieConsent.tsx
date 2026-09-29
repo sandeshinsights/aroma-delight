@@ -2,21 +2,40 @@
 
 import { useState, useEffect } from "react";
 import { Cookie, X } from "lucide-react";
+import { setGoogleConsent } from "@/lib/google-tag";
+
+/** Same key GoogleTag.tsx reads in its init snippet — keep them in sync. */
+const CONSENT_KEY = "cookie-consent";
+
+function readConsent(): string | null {
+  try {
+    return localStorage.getItem(CONSENT_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function writeConsent(value: "accepted" | "declined"): void {
+  try {
+    localStorage.setItem(CONSENT_KEY, value);
+  } catch {
+    // Private mode: the choice still applies for this page view.
+  }
+}
 
 /**
  * Cookie Consent Banner
- * 
- * WHAT IT DOES:
- * - Shows a banner at the bottom of the page on first visit
- * - Asks the user to accept cookies (required for GA4 compliance)
- * - If accepted: stores preference in localStorage and loads GA4
- * - If declined: stores preference and does NOT load GA4
- * - Remembers the choice — never shows again after selection
- * 
- * WHY "use client":
- * - Uses useState and useEffect for browser-side logic
- * - Reads/writes localStorage
- * - Manages GA4 script loading dynamically
+ *
+ * Records the visitor's choice for Google Ads + GA4 (Consent Mode v2).
+ *
+ * The Google tag itself is loaded by GoogleTag.tsx for every visitor — by
+ * decision, the same as the Meta Pixel — with consent defaulting to "granted"
+ * outside the EEA/UK/CH. This banner only *updates* that consent: Decline turns
+ * Google's ad and analytics storage off, Accept turns it on (which is what
+ * matters for EEA visitors, whose default is "denied"). GoogleTag.tsx also reads
+ * the stored choice back on later visits, so a Decline sticks.
+ *
+ * It does not govern the Meta Pixel — see MetaPixel.tsx for that decision.
  */
 
 export default function CookieConsent() {
@@ -24,46 +43,21 @@ export default function CookieConsent() {
 
   useEffect(() => {
     // Only show banner if user hasn't already made a choice
-    const consent = localStorage.getItem("cookie-consent");
-    if (consent === null) {
+    if (readConsent() === null) {
       setShow(true);
-    } else if (consent === "accepted") {
-      loadGA4();
     }
   }, []);
 
-  const loadGA4 = () => {
-    // Load Google Analytics 4 dynamically
-    // Replace G-XXXXXXXXXX with your real GA4 ID in Phase 1 Step 6
-    const gaId = process.env.NEXT_PUBLIC_GA_ID;
-    if (!gaId || gaId === "G-XXXXXXXXXX") return;
-
-    // Load gtag.js script
-    const script = document.createElement("script");
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
-    script.async = true;
-    document.head.appendChild(script);
-
-    // Initialize gtag
-    const inlineScript = document.createElement("script");
-    inlineScript.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${gaId}', { anonymize_ip: true });
-    `;
-    document.head.appendChild(inlineScript);
-  };
-
   const handleAccept = () => {
-    localStorage.setItem("cookie-consent", "accepted");
+    writeConsent("accepted");
     setShow(false);
-    loadGA4();
+    setGoogleConsent(true);
   };
 
   const handleDecline = () => {
-    localStorage.setItem("cookie-consent", "declined");
+    writeConsent("declined");
     setShow(false);
+    setGoogleConsent(false);
   };
 
   if (!show) return null;
@@ -83,8 +77,8 @@ export default function CookieConsent() {
               We Use Cookies
             </h3>
             <p className="text-text-light text-sm leading-relaxed">
-              We use cookies to improve your experience and understand how our website is used. 
-              By clicking &ldquo;Accept,&rdquo; you consent to our use of cookies.{" "}
+              We use cookies to understand how our website is used and to measure our
+              advertising on Google and Meta. You can decline Google&rsquo;s cookies here.{" "}
               <a href="/privacy" className="text-secondary underline hover:text-primary transition-colors">
                 Privacy Policy
               </a>

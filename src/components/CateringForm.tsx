@@ -5,6 +5,8 @@ import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { getRestaurantData } from "@/lib/data";
 // Meta Pixel — Lead is sent from here and from /api/catering under one event id.
 import { trackMeta, newMetaEventId, getMetaBrowserIds } from "@/lib/meta-pixel";
+// Google Ads generate_lead — the Google twin of Lead, fired at the same point.
+import { trackGoogleConversion } from "@/lib/google-tag";
 
 export default function CateringForm() {
   const { catering, phone, phoneDisplay } = getRestaurantData();
@@ -68,6 +70,15 @@ export default function CateringForm() {
             currency: "USD",
           },
           metaEventId
+        );
+        trackGoogleConversion(
+          "lead",
+          { event_category: form.eventType || undefined },
+          {
+            gaEvent: "generate_lead",
+            // Raw values; gtag hashes them in the browser (Enhanced Conversions).
+            userData: { email: form.email, phone_number: form.phone },
+          }
         );
         setForm({
           name: "",

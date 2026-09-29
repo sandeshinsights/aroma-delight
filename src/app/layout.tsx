@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import CartDrawer from "@/components/CartDrawer";
 import MetaPixel from "@/components/MetaPixel";
+import GoogleTag from "@/components/GoogleTag";
 import { CartProvider } from "@/context/CartContext";
 import "./globals.css";
 
@@ -60,6 +61,7 @@ export default function RootLayout({
           <CookieConsent />
           <CartDrawer />
           <MetaPixel />
+          <GoogleTag />
         </CartProvider>
       </body>
     </html>

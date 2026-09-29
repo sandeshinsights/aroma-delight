@@ -41,29 +41,45 @@ geocoder in `src/lib/staff-delivery.ts`). Beyond that, quote and checkout both r
 settles null-state delivery orders as `"staff"` instead of re-dispatching. The Uber workflow
 described below is intact — set `provider: "uber"` once real `UBER_DIRECT_*` credentials exist.
 
-## Google Ads + Google Business Profile (new for Aroma Delights)
+## Google Ads + GA4 (browser side built) and Google Business Profile (not yet)
 
-The Cafe of India build has **Meta Pixel + Conversions API** (`src/lib/meta-pixel.ts`,
-`src/lib/meta-capi.ts`, `src/components/MetaPixel.tsx`) and **GA4 gated behind the cookie
-banner** (`CookieConsent.tsx` gates gtag). Aroma Delights additionally needs:
+**Google tag — built 2026-09-26.** One gtag.js load (`src/components/GoogleTag.tsx`, mounted
+in `layout.tsx` next to `MetaPixel`) serves Google Ads and GA4; helpers in
+`src/lib/google-tag.ts`. Four Google Ads conversions, placed at the same points and on the
+same value basis (food revenue, subtotal − discount) as the Meta events:
 
-- **Google Ads conversion tracking** — mirror the Meta dual-send design. Browser: `gtag`
-  `conversion` events for `begin_checkout` / `purchase` / `generate_lead`. Server:
-  **Enhanced Conversions for Leads / web** via the Google Ads API offline-conversion import
-  or the gtag enhanced-conversions payload (hashed email/phone, same SHA-256 normalization
-  as `meta-capi.ts` — lowercase+trim, phone digits+country code). Reuse the shared
-  `event_id` / `order.id` idempotency pattern so Google and Meta don't disagree.
-  New env: `NEXT_PUBLIC_GOOGLE_ADS_ID` (AW-XXXXXXX), per-conversion labels, and
-  (if doing server-side) `GOOGLE_ADS_*` API credentials + developer token.
-- **Consent Mode v2** — Google Ads/GA4 in the EEA needs `gtag('consent', ...)`. Wire it to
-  the same `CookieConsent` banner. Decide (as the Meta Pixel decision was made) whether ads
-  tags fire pre-consent for US-only traffic; document it in the privacy policy either way.
-- **Google Business Profile** — off-site listing, but the site supports it via:
-  `LocalBusiness` / `Restaurant` JSON-LD structured data (name, address, geo, hours, phone,
-  `sameAs`, `priceRange`, `servesCuisine`, `menu` URL) in `layout.tsx` or a dedicated
-  component; exact **NAP** (name/address/phone) consistency between the site, the JSON-LD,
-  and the GBP listing; `hasMenu` pointing at the menu; and a reviews block whose schema
-  matches. Add `AggregateRating` only if backed by real review data.
+| Conversion (label env var) | Fired from | Meta twin |
+|---|---|---|
+| `purchase` (`…_LABEL_PURCHASE`) | success page, `transaction_id` = **order.id** (Google's dedup key) | Purchase |
+| `begin_checkout` (`…_LABEL_BEGIN_CHECKOUT`) | `CartDrawer.handleCheckout` — **Secondary** in Google Ads | InitiateCheckout |
+| `generate_lead` (`…_LABEL_GENERATE_LEAD`) | `CateringForm`, on a stored inquiry only | Lead |
+| phone call (`…_LABEL_PHONE_CALL`) | any `tel:` link click — one delegated listener in `GoogleTag.tsx`, so new phone links are counted automatically | — |
+
+- A conversion whose label env var is empty is **skipped**, not sent unlabelled.
+- **Enhanced Conversions:** `set user_data` before each conversion. Checkout and catering pass
+  raw email/phone (gtag hashes them in the browser). The success page has no PII, so
+  `fulfillOrder()` returns `googleUserData` — SHA-256 hashes built by `src/lib/google-enhanced.ts`
+  — through `/api/verify-order`. **Google's normalization differs from Meta's** (gmail dots
+  stripped; phone hashed as E.164 *with* `+`), so the Meta hashes are deliberately not reused.
+- **Consent Mode v2 — decision:** tags run for all visitors (same call as the Meta Pixel).
+  Consent defaults to granted, except EEA/UK/CH (denied until Accept) and anyone who
+  previously clicked Decline (read from the `cookie-consent` localStorage key inside the init
+  snippet, before `config`). `CookieConsent.tsx` only sends `consent update`; it no longer
+  loads GA4 itself. The privacy policy discloses all of this.
+- **`gclid`** is captured on landing (`captureGclid`) and parked in Stripe metadata as
+  `g_gclid`, like `fb_fbc`, for a future offline upload. Nothing reads it yet.
+- **Deliberately not built:** the server-side Google Ads API upload (needs a developer
+  token Google must approve). Browser + Enhanced Conversions covers most of it; the gap is a
+  customer who pays and closes the tab before the success page loads.
+- The Google Ads account also receives conversions from the restaurant's old site
+  (`aromadelightma.us`, via an old GA4 property). Those actions are set to Secondary so
+  only this site's conversions steer bidding.
+
+**Google Business Profile — still to do.** The site supports it via `LocalBusiness` /
+`Restaurant` JSON-LD (name, address, geo, hours, phone, `sameAs`, `priceRange`,
+`servesCuisine`, `menu` URL) in `layout.tsx` or a dedicated component; exact **NAP**
+(name/address/phone) consistency between the site, the JSON-LD, and the GBP listing;
+`hasMenu` pointing at the menu. Add `AggregateRating` only if backed by real review data.
 
 @AGENTS.md
 
@@ -161,7 +177,7 @@ A single-page marketing + online-ordering site for one restaurant (Cafe of India
   - **Conversion `value` is food revenue — `subtotal - discount`, not `order.total`.** Tax goes to the state, tips to staff and the delivery fee to Uber, so including them would inflate ROAS against money the restaurant never keeps. `buildPurchaseSummary()` in `order-fulfillment.ts` is the one place to change this. The browser and server halves must keep the same basis.
   - Meta `content_ids` are the **base menu id** (first two dash-segments of the composite cart id), the same recovery `getMenuItemPrice` does — so audiences and any future catalog reconcile across orders.
   - PII (`em`, `ph`, `fn`, `ln`) is SHA-256'd after lowercase+trim, phones digits-only with a US country code. Meta accepts a wrongly-normalized hash silently — it just never matches anyone — so normalization bugs here are invisible, not loud.
-  - **Not gated on the cookie banner.** The banner governs GA4 only; the Pixel runs for all visitors by decision, and the privacy policy discloses Meta accordingly. To reverse that, gate the `<Script>` in `MetaPixel.tsx` the way `CookieConsent` gates gtag.
+  - **Not gated on the cookie banner.** The banner governs Google's tags only (Consent Mode); the Pixel runs for all visitors by decision, and the privacy policy discloses Meta accordingly. To reverse that, read the `cookie-consent` key in `MetaPixel.tsx` and skip the `<Script>` on "declined".
   - Unconfigured is a clean no-op on both halves — no pixel id means no script and no events; no access token means no CAPI calls.
 
 ## Data layer
@@ -171,4 +187,4 @@ A single-page marketing + online-ordering site for one restaurant (Cafe of India
 
 ## Environment variables
 
-`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `DATABASE_URL`, `DIRECT_URL`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESTAURANT_EMAIL`, `HP_EPRINT_EMAIL`, `SALES_TAX_RATE`, `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `UBER_DIRECT_CUSTOMER_ID`, `UBER_DIRECT_CLIENT_ID`, `UBER_DIRECT_CLIENT_SECRET`, `UBER_WEBHOOK_SECRET` (Uber webhook signature verification — optional until configured, then enforced), `CRON_SECRET` (required — the cron route refuses all requests when unset rather than accepting `Bearer undefined`), `NEXT_PUBLIC_META_PIXEL_ID` + `META_CAPI_ACCESS_TOKEN` (Meta Pixel and Conversions API — both optional; the integration no-ops without them), `META_TEST_EVENT_CODE` (set only while validating in Events Manager → Test Events, then **remove it** — events carrying a test code do not count as conversions), `META_GRAPH_API_VERSION` (optional override; defaults to a pinned version). `.env*` is gitignored — including `.env.example`, so this list is the real reference. Deploys to Vercel (`vercel.json` also defines the dispatch-scheduled cron).
+`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `DATABASE_URL`, `DIRECT_URL`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESTAURANT_EMAIL`, `HP_EPRINT_EMAIL`, `SALES_TAX_RATE`, `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `UBER_DIRECT_CUSTOMER_ID`, `UBER_DIRECT_CLIENT_ID`, `UBER_DIRECT_CLIENT_SECRET`, `UBER_WEBHOOK_SECRET` (Uber webhook signature verification — optional until configured, then enforced), `CRON_SECRET` (required — the cron route refuses all requests when unset rather than accepting `Bearer undefined`), `NEXT_PUBLIC_META_PIXEL_ID` + `META_CAPI_ACCESS_TOKEN` (Meta Pixel and Conversions API — both optional; the integration no-ops without them), `META_TEST_EVENT_CODE` (set only while validating in Events Manager → Test Events, then **remove it** — events carrying a test code do not count as conversions), `META_GRAPH_API_VERSION` (optional override; defaults to a pinned version). `NEXT_PUBLIC_GOOGLE_ADS_ID` (`AW-…`), `NEXT_PUBLIC_GOOGLE_ADS_LABEL_PURCHASE`, `…_BEGIN_CHECKOUT`, `…_GENERATE_LEAD`, `…_PHONE_CALL` and `NEXT_PUBLIC_GA_ID` (`G-…`) — all public, all optional; the Google tag no-ops with neither id set and skips any conversion whose label is empty. `.env*` is gitignored — including `.env.example`, so this list is the real reference. Deploys to Vercel (`vercel.json` also defines the dispatch-scheduled cron).

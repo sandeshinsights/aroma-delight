@@ -22,6 +22,8 @@ import {
   getMetaBrowserIds,
   toMetaContentId,
 } from "@/lib/meta-pixel";
+// Google Ads begin_checkout — the Google twin of InitiateCheckout, same value basis.
+import { trackGoogleConversion, getGclid } from "@/lib/google-tag";
 
 /**
  * The spend-threshold offer, shown in the cart.
@@ -408,6 +410,24 @@ export default function CartDrawer() {
       metaEventId
     );
 
+    trackGoogleConversion(
+      "beginCheckout",
+      {
+        value: discountedSubtotal,
+        currency: "USD",
+        items: metaContents.map((c) => ({
+          item_id: c.id,
+          quantity: c.quantity,
+          price: c.item_price,
+        })),
+      },
+      {
+        gaEvent: "begin_checkout",
+        // Raw values: gtag normalizes and hashes them before they leave the browser.
+        userData: { email: customerEmail.trim(), phone_number: customerPhone.trim() },
+      }
+    );
+
     try {
       const response = await fetch("/api/checkout", {
         method: "POST",
@@ -444,6 +464,9 @@ export default function CartDrawer() {
             fbp: metaBrowserIds.fbp,
             fbc: metaBrowserIds.fbc,
           },
+          // Google Ads click id, parked in Stripe metadata for a future
+          // offline-conversion upload. Absent for non-ad traffic.
+          google: { gclid: getGclid() },
           ...(orderMode === "scheduled" && selectedDate && selectedTimeSlot
             ? {
                 scheduledDate: selectedDate.toLocaleDateString("en-CA", {

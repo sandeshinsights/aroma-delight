@@ -49,6 +49,9 @@ export async function POST(request: NextRequest) {
       // it with eventID = orderId, matching the server copy sent from
       // fulfillOrder(), so Meta records one conversion rather than two.
       purchase: result.purchase,
+      // Pre-hashed email/phone for the Google Ads purchase conversion
+      // (Enhanced Conversions). Never the plain values.
+      googleUserData: result.googleUserData,
     });
   } catch (error) {
     console.error("Verify order error:", error);

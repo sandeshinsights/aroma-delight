@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CheckCircle, Home, Loader2, Truck, Clock, ExternalLink, Info } from "lucide-react";
 import { trackMeta } from "@/lib/meta-pixel";
+import { trackGoogleConversion, type GoogleUserData } from "@/lib/google-tag";
 import { useCart } from "@/context/CartContext";
 import { getRestaurantData } from "@/lib/data";
 
@@ -29,6 +30,8 @@ interface VerifyResult {
     contentIds: string[];
     numItems: number;
   };
+  /** SHA-256'd email/phone for Google Enhanced Conversions (never plain). */
+  googleUserData?: GoogleUserData;
 }
 
 /**
@@ -118,6 +121,21 @@ export default function OrderSuccess() {
               order_id: data.orderId,
             },
             data.orderId
+          );
+
+          // Google Ads purchase — same once-per-mount guard and same value
+          // basis as the Meta event. transaction_id = order id is Google's
+          // dedup key, so a refresh of this page (new mount) is not a second
+          // sale either.
+          trackGoogleConversion(
+            "purchase",
+            {
+              value: data.purchase?.value ?? 0,
+              currency: data.purchase?.currency ?? "USD",
+              transaction_id: data.orderId,
+              items: (data.purchase?.contentIds ?? []).map((id) => ({ item_id: id })),
+            },
+            { gaEvent: "purchase", userData: data.googleUserData }
           );
         }
 

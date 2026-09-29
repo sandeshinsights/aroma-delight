@@ -4,6 +4,7 @@ import { sendOrderNotification, sendCustomerConfirmation, sendOrderToPrinter } f
 import { createUberDelivery, getUberDeliveryStatus } from "@/lib/uber-direct";
 import { DELIVERY_CONFIG } from "@/lib/delivery";
 import { queueMetaCapiEvent } from "@/lib/meta-capi";
+import { buildGoogleHashedUserData, type GoogleHashedUserData } from "@/lib/google-enhanced";
 
 /**
  * Resend's default rate limit is 2 requests/second. Fulfillment fires three
@@ -48,6 +49,12 @@ export interface FulfillmentResult {
    * lands on. Purely informational; nothing in the ordering flow reads it.
    */
   purchase?: MetaPurchaseSummary;
+  /**
+   * Customer email/phone, SHA-256'd to Google's Enhanced Conversions spec, for
+   * the success page's Google Ads `purchase` conversion. Hashed here so the
+   * page never receives the customer's contact details in the clear.
+   */
+  googleUserData?: GoogleHashedUserData;
 }
 
 /** Meta Purchase payload, derived from the stored cart snapshot. */
@@ -173,6 +180,7 @@ async function describeFulfilledOrder(order: OrderRow): Promise<FulfillmentResul
     dropoffEta,
     dispatchPending,
     purchase: buildPurchaseSummary(order),
+    googleUserData: buildGoogleHashedUserData(order),
     alreadyFulfilled: true,
   };
 }
@@ -436,6 +444,7 @@ export async function fulfillOrder(sessionId: string): Promise<FulfillmentResult
       trackingUrl,
       dropoffEta,
       purchase,
+      googleUserData: buildGoogleHashedUserData(order),
     };
   } catch (error) {
     // Anything landing here is infrastructure (Stripe unreachable, DB down, a
