@@ -10,7 +10,6 @@ import {
   Link2,
   Search,
   X,
-  Gift,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 // Meta Pixel — browser-only funnel event. ViewContent has no server counterpart.
@@ -246,24 +245,6 @@ export default function Menu() {
             Cooked fresh, to order
           </h2>
           <div className="mx-auto mt-5 h-px w-16 bg-secondary" />
-        </div>
-
-        {/* free-item offer */}
-        <div className="mx-auto mb-8 flex max-w-2xl items-start gap-4 rounded-xl border border-secondary/30 bg-secondary/10 p-5">
-          <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary/20 text-secondary">
-            <Gift className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="font-heading text-lg text-ink">
-              Spend $50, get a free Mango Lassi
-            </p>
-            <p className="font-heading text-lg text-ink">
-              Spend $100, get a free Vegetable Samosa + Mango Lassi
-            </p>
-            <p className="mt-1 text-sm text-text-light">
-              Add it to your cart and it comes off at checkout.
-            </p>
-          </div>
         </div>
 
         {/* search */}
